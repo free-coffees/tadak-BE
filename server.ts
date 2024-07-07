@@ -3,18 +3,18 @@ import express, { Request, Response } from 'express';
 require('dotenv').config();
 const routes = require('./src/routes/index');
 const app = express();
-//const db = require("./database/index");
+const db = require('./database/index');
 const http = require('http');
 const morgan = require('morgan');
 const schedule = require('node-schedule');
 const getExchangeRate = require('./src/utils/exchangeRate');
 
-// db.sequelize
-//   .sync({ alter: true })
-//   .then(() => {
-//     console.log("db 연결 성공");
-//   })
-//   .catch(console.error);
+db.sequelize
+   .sync({ alter: true })
+   .then(() => {
+      console.log('db 연결 성공');
+   })
+   .catch(console.error);
 app.use(morgan('dev'));
 
 // parse requests of content-type - application/json
