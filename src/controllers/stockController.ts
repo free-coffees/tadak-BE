@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../modules/api.error';
+import ApiError from '../utils/api.error';
 
 const stockService = require('../services/stockService');
 

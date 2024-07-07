@@ -10,11 +10,12 @@ const schedule = require('node-schedule');
 const getExchangeRate = require('./src/utils/exchangeRate');
 
 db.sequelize
-   .sync({ alter: true })
+   .sync({ force: true })
    .then(() => {
       console.log('db 연결 성공');
    })
    .catch(console.error);
+
 app.use(morgan('dev'));
 
 // parse requests of content-type - application/json
