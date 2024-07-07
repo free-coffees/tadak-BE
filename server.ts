@@ -36,7 +36,7 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   schedule.scheduleJob('*/1 * * * *', function () {
+   schedule.scheduleJob('*/3 * * * *', function () {
       getExchangeRate();
    });
 });

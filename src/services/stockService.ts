@@ -1,5 +1,8 @@
 import axios from 'axios';
+
 const getExchangeRate = require('../utils/exchangeRate');
+const access_token =
+   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjFjYmM4NWFlLTNlZjYtNGJhMy1hNDlkLTc1MjQwMjU2OTFmNyIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDMyNDkyOSwiaWF0IjoxNzIwMjM4NTI5LCJqdGkiOiJQU1dvRGtrNHpOZ0ppNTc2dFVVUWNiRlZCRlliZEUwcVFmdGsifQ.vdoDrrRNIhtQsjyvGWICrYUr0FyeKxgkRpuc857bve4CHTGbALcGdEQ-Fo1DwBdkMZQh9fZx17YD5ph5YMy68g';
 
 async function getTokenService() {
    const data = await axios({
@@ -23,8 +26,7 @@ async function readKRCurrentPriceService(itemCode: string) {
       url: 'https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-price',
       headers: {
          'Content-Type': 'application/json; charset=UTF-8',
-         authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImExNjRlZWYzLWY5OTAtNDMwNC04NWRiLTQwZTc1OGE2MDZhMyIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDI1MDExNCwiaWF0IjoxNzIwMTYzNzE0LCJqdGkiOiJQU1dvRGtrNHpOZ0ppNTc2dFVVUWNiRlZCRlliZEUwcVFmdGsifQ.hfhuUHTXqXLrOGUgUdEGEnYlbySwLyVnaaR00l1kEksn7dtbZVKmOMAdOAtVHvEakf0mTqwlVKuXe8WA-RWijQ',
+         authorization: 'Bearer ' + access_token,
          appkey: process.env.STOCK_KEY,
          appsecret: process.env.STOCK_SECRET_KEY,
          tr_id: 'FHKST01010100',
@@ -45,8 +47,7 @@ async function readUSCurrentPriceService(itemCode: string) {
       url: 'https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/price',
       headers: {
          'Content-Type': 'application/json; charset=UTF-8',
-         authorization:
-            'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6ImExNjRlZWYzLWY5OTAtNDMwNC04NWRiLTQwZTc1OGE2MDZhMyIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDI1MDExNCwiaWF0IjoxNzIwMTYzNzE0LCJqdGkiOiJQU1dvRGtrNHpOZ0ppNTc2dFVVUWNiRlZCRlliZEUwcVFmdGsifQ.hfhuUHTXqXLrOGUgUdEGEnYlbySwLyVnaaR00l1kEksn7dtbZVKmOMAdOAtVHvEakf0mTqwlVKuXe8WA-RWijQ',
+         authorization: 'Bearer ' + access_token,
          appkey: process.env.STOCK_KEY,
          appsecret: process.env.STOCK_SECRET_KEY,
          tr_id: 'HHDFS00000300',
