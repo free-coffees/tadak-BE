@@ -10,7 +10,7 @@ const schedule = require('node-schedule');
 const getExchangeRate = require('./src/utils/exchangeRate');
 
 db.sequelize
-   .sync({ force: true })
+   .sync({ alter: true })
    .then(() => {
       console.log('db 연결 성공');
    })
@@ -37,8 +37,8 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   schedule.scheduleJob('*/3 * * * *', function () {
-      getExchangeRate();
-   });
+   // schedule.scheduleJob('*/3 * * * *', async function () {
+   //    await getExchangeRate();
+   // });
 });
 module.exports = server;

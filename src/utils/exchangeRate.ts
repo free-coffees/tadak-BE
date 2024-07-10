@@ -25,7 +25,14 @@ async function getExchangeRate() {
                data: 'AP01',
             },
          });
-         console.log(data.data); // 환율 db에 최신화 예정
+         let exchangeRate: number = 0;
+         for (let i = 0; i < data.data.length; i++) {
+            if (data.data[i].cur_unit == 'USD') {
+               exchangeRate = Number(data.data[i].deal_bas_r.replace(',', ''));
+               console.log(data.data[i]);
+            }
+         } // 환율 db에 최신화 예정
+         console.log(exchangeRate);
          break;
       } catch (error) {
          console.log('에러');

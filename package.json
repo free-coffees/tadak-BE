@@ -25,6 +25,7 @@
     "morgan": "^1.10.0",
     "mysql2": "^3.10.2",
     "node-schedule": "^2.1.1",
+    "node-xlsx": "^0.24.0",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
     "yahoo-finance2": "^2.11.3"
