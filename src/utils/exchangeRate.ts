@@ -1,6 +1,7 @@
 import axios from 'axios';
 import https from 'https';
 import crypto from 'crypto';
+const cheerio = require('cheerio');
 
 const allowLegacyRenegotiationforNodeJsOptions = {
    httpsAgent: new https.Agent({
@@ -32,7 +33,6 @@ async function getExchangeRate() {
                console.log(data.data[i]);
             }
          } // 환율 db에 최신화 예정
-         console.log(exchangeRate);
          break;
       } catch (error) {
          console.log('에러');
@@ -42,4 +42,14 @@ async function getExchangeRate() {
    }
 }
 
-module.exports = getExchangeRate;
+async function getExchangeRateByCrawling() {
+   try {
+      let html = await axios.get('https://www.google.com/finance/quote/USD-KRW?hl=ko');
+      const $ = cheerio.load(html.data);
+      console.log($('div.kf1m0').text());
+   } catch (error) {
+      console.log(error);
+   }
+}
+
+module.exports = getExchangeRateByCrawling;

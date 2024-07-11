@@ -7,7 +7,7 @@ const db = require('./database/index');
 const http = require('http');
 const morgan = require('morgan');
 const schedule = require('node-schedule');
-const getExchangeRate = require('./src/utils/exchangeRate');
+const getExchangeRateByCrawling = require('./src/utils/exchangeRate');
 
 db.sequelize
    .sync({ alter: true })
@@ -37,8 +37,8 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   // schedule.scheduleJob('*/3 * * * *', async function () {
-   //    await getExchangeRate();
-   // });
+   schedule.scheduleJob('*/20 * * * *', async function () {
+      await getExchangeRateByCrawling(); // 20분 마다 환율 업데이트
+   });
 });
 module.exports = server;
