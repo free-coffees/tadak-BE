@@ -46,7 +46,8 @@ async function getExchangeRateByCrawling() {
    try {
       let html = await axios.get('https://www.google.com/finance/quote/USD-KRW?hl=ko');
       const $ = cheerio.load(html.data);
-      console.log($('div.kf1m0').text());
+      const exchageRate = $('div.YMlKec.fxKbKc').text();
+      console.log(exchageRate);
    } catch (error) {
       console.log(error);
    }
