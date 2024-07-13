@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'stock',
+      'search_frequency',
       {
          id: {
             autoIncrement: true,
@@ -10,21 +10,12 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         stock_code: {
-            type: DataTypes.STRING,
+         stock_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
-            unique: 'stock_code',
          },
-         stock_name_kr: {
-            type: DataTypes.STRING,
-            allowNull: true,
-         },
-         stock_name_en: {
-            type: DataTypes.STRING,
-            allowNull: true,
-         },
-         market: {
-            type: DataTypes.STRING,
+         frequency: {
+            type: DataTypes.INTEGER,
             allowNull: false,
          },
       },

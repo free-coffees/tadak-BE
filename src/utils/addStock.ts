@@ -5,7 +5,7 @@ const db = require('../../database/index');
 const stock = db.stock;
 
 const access_token =
-   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6IjllMzg0M2FiLTU2MGUtNDAxOS05YmEzLTFmMWU1YTc5NzFhNSIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDY3ODQzOCwiaWF0IjoxNzIwNTkyMDM4LCJqdGkiOiJQU1dvRGtrNHpOZ0ppNTc2dFVVUWNiRlZCRlliZEUwcVFmdGsifQ.WHLuWumhjilqv09tsQDnBQ0e4N7HAsB5RwZrk2-Y-bu0OxodDHhcFXL-jmUrCrtRZ1J5p3dTweT3tfKMP-okjQ';
+   'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b2tlbiIsImF1ZCI6Ijc3Y2Q0YWYxLWQ0MWYtNDI5ZS05OGUxLTM3NmQ0OGE0YTJmZiIsInByZHRfY2QiOiIiLCJpc3MiOiJ1bm9ndyIsImV4cCI6MTcyMDg1OTA1NCwiaWF0IjoxNzIwNzcyNjU0LCJqdGkiOiJQU1dvRGtrNHpOZ0ppNTc2dFVVUWNiRlZCRlliZEUwcVFmdGsifQ.8POeCtiFrg-D7dkGO3Id3i0VL6clxwVBUtD4f58b7B1zE8l9lbimWCalP3-BAoOfOMfr8fgW9U_Umc6xsKH0-A';
 function sleep(ms: any) {
    return new Promise(r => setTimeout(r, ms));
 }
@@ -137,7 +137,7 @@ async function addAmexStockToDB() {
 
 async function addKrStockToDB() {
    try {
-      const content = xlsx.parse(fs.readFileSync(`${__dirname}/krstock.xlsx`));
+      const content = xlsx.parse(fs.readFileSync(`${__dirname}/etn.xlsx`));
       for (let i = 1; i < content[0].data.length; i++) {
          await sleep(100);
          const data = await axios({
@@ -159,9 +159,9 @@ async function addKrStockToDB() {
          if (data.data.output) {
             await stock.create({
                stock_code: content[0].data[i][0],
-               stock_name_kr: data.data.output.prdt_name,
-               stock_name_en: data.data.output.prdt_eng_name,
-               market: content[0].data[i][2],
+               stock_name_kr: data.data.output.prdt_abrv_name,
+               stock_name_en: data.data.output.prdt_eng_abrv_name,
+               market: 'ETN',
             });
          } else {
             console.log(data.data);
@@ -170,7 +170,7 @@ async function addKrStockToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      //console.log(error);
+      console.log(error);
    }
 }
 

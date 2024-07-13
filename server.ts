@@ -37,7 +37,7 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10000;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   schedule.scheduleJob('*/20 * * * *', async function () {
+   schedule.scheduleJob('*/1 * * * *', async function () {
       await getExchangeRateByCrawling(); // 20분 마다 환율 업데이트
    });
 });
