@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'exchange_rate',
+      'api_token',
       {
          id: {
             autoIncrement: true,
@@ -10,8 +10,8 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         rate: {
-            type: DataTypes.STRING,
+         access_token: {
+            type: DataTypes.STRING(1234),
             allowNull: false,
          },
       },
