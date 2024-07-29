@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import ApiError from '../utils/api.error';
-import jwt, { JsonWebTokenError } from 'jsonwebtoken';
+import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 const userService = require('../services/userService');
 
 async function loginController(req: Request, res: Response) {
@@ -22,7 +22,7 @@ async function reissueAcessTokenController(req: Request, res: Response) {
       return res.status(StatusCodes.OK).send({ data });
    } catch (error: any) {
       if (error instanceof JsonWebTokenError) {
-         if (error.name == 'TokenExpiredError') {
+         if (error instanceof TokenExpiredError) {
             return res.status(419).json({ message: 'Refresh Token 이 만료되었습니다.' });
          } else {
             return res.status(401).json({ message: 'Refresh Token 이 유효하지 않습니다.' });

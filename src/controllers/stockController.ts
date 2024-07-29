@@ -4,26 +4,6 @@ import ApiError from '../utils/api.error';
 import axios, { AxiosError } from 'axios';
 
 const stockService = require('../services/stockService');
-const getApiToken = require('../utils/getApiToken');
-
-async function getTokenController(req: Request, res: Response) {
-   try {
-      const data = await getApiToken();
-      return res.status(StatusCodes.OK).send({ data });
-   } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-         if (error.response?.data) {
-            return res.status(error.response?.status || 500).json({ message: error.response?.data.error_description });
-         } else {
-            return res.status(error.response?.status || 500).json({ message: error.response?.statusText });
-         }
-      } else {
-         const err = error as ApiError;
-         console.log(err);
-         return res.status(err.statusCode || 500).json({ message: err.message });
-      }
-   }
-}
 
 async function readKRCurrentPriceController(req: Request, res: Response) {
    try {
@@ -67,7 +47,6 @@ async function readUSCurrentPriceController(req: Request, res: Response) {
 }
 
 module.exports = {
-   getTokenController,
    readKRCurrentPriceController,
    readUSCurrentPriceController,
 };

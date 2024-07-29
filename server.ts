@@ -10,6 +10,7 @@ const schedule = require('node-schedule');
 const getExchangeRateByCrawling = require('./src/utils/exchangeRate');
 const getApiToken = require('./src/utils/getApiToken');
 const updateRedisPrice = require('./src/utils/updateRedisPrice');
+const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
 db.sequelize
    .sync({ alter: true })
@@ -29,16 +30,13 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-// simple route
-app.get('/', (req: Request, res: Response) => {
-   res.json({ message: 'Welcome to my application.' });
-});
-
 app.use(routes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const server = http.createServer(app);
 
-getApiToken();
+//getApiToken();
 
 // set port, listen for requests
 const PORT = process.env.PORT || 10000;

@@ -17,12 +17,12 @@ async function loginService(deviceId: string): Promise<{ access_token: string; r
 
    const access_token = jwt.sign(payload, secret_key, {
       algorithm: 'HS256',
-      expiresIn: '1h',
+      expiresIn: '12h',
    });
 
    const refresh_token = jwt.sign(payload, secret_key, {
       algorithm: 'HS256',
-      expiresIn: '6h',
+      expiresIn: '7 days',
    });
 
    await userRepo.updateRefreshToken(isExistedUser.id, refresh_token);
@@ -32,7 +32,7 @@ async function loginService(deviceId: string): Promise<{ access_token: string; r
 
 async function reissueAcessTokenService(refresh_token: string) {
    let access_token: string = '';
-   const decoded = jwt.verify(refresh_token, secret_key);
+   const decoded = await jwt.verify(refresh_token, secret_key);
    if (typeof decoded == 'string') {
       const error = new ApiError(401, 'Refresh Token 이 유효하지 않습니다.');
       throw error;
@@ -44,7 +44,7 @@ async function reissueAcessTokenService(refresh_token: string) {
          };
          access_token = jwt.sign(payload, secret_key, {
             algorithm: 'HS256',
-            expiresIn: '1h',
+            expiresIn: '12h',
          });
       } else {
          const error = new ApiError(401, 'Refresh Token 이 유효하지 않습니다.');

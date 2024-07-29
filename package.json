@@ -32,6 +32,8 @@
     "redis": "^4.6.15",
     "sequelize": "^6.37.3",
     "sequelize-cli": "^6.6.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "yahoo-finance2": "^2.11.3"
   }
 }

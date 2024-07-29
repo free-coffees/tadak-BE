@@ -6,6 +6,7 @@ const searchService = require('../services/searchService');
 
 async function getSearchListController(req: Request, res: Response) {
    try {
+      console.log(req.userId);
       const searchWord: string = String(req.query.word);
       const data = await searchService.getSearchListService(searchWord);
       if (data.length == 0) {
