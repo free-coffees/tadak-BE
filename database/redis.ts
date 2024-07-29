@@ -2,6 +2,15 @@ import { createClient } from 'redis';
 
 const redisClient = createClient({
    url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
+   socket: {
+      reconnectStrategy(retries, cause) {
+         if (retries < 10) {
+            console.log('fds');
+            return 100;
+         }
+         return 500;
+      },
+   },
    //legacyMode: true,
 });
 

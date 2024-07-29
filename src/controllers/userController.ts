@@ -28,6 +28,7 @@ async function reissueAcessTokenController(req: Request, res: Response) {
             return res.status(401).json({ message: 'Refresh Token 이 유효하지 않습니다.' });
          }
       } else {
+         console.log(error);
          const err = error as ApiError;
          return res.status(err.statusCode || 500).json({ message: err.message });
       }

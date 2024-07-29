@@ -38,7 +38,7 @@ app.use(routes);
 
 const server = http.createServer(app);
 
-//getApiToken();
+getApiToken();
 
 // set port, listen for requests
 const PORT = process.env.PORT || 10000;
@@ -52,9 +52,9 @@ server.listen(PORT, () => {
       console.log('get api token');
       await getApiToken(); // 23시간 마다 open api token 재발급
    });
-   // schedule.scheduleJob('0 0/1 * * * *', async function () {
-   //    console.log('update redis price');
-   //    await updateRedisPrice(); // 23시간 마다 open api token 재발급
-   // });
+   schedule.scheduleJob('0 0/1 * * * *', async function () {
+      console.log('update redis price');
+      await updateRedisPrice(); // 1분마다 redis 에 있는 가격 정보 업데이트
+   });
 });
 module.exports = server;
