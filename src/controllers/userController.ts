@@ -17,13 +17,13 @@ async function loginController(req: Request, res: Response) {
 
 async function reissueAcessTokenController(req: Request, res: Response) {
    try {
-      const refresh_token = req.headers['refresh-token'];
+      const refresh_token = req.headers['refresh-token']; // 400, refresh 필요
       const data = await userService.reissueAcessTokenService(refresh_token);
       return res.status(StatusCodes.OK).send({ data });
    } catch (error: any) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
-            return res.status(419).json({ message: 'Refresh Token 이 만료되었습니다.' });
+            return res.status(401).json({ message: 'Refresh Token 이 만료되었습니다.' });
          } else {
             return res.status(401).json({ message: 'Refresh Token 이 유효하지 않습니다.' });
          }

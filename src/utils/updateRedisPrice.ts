@@ -25,7 +25,6 @@ async function updateRedisPrice() {
          });
          await redisClient.hSet('stock_prices', list[i], data.data.output.stck_prpr);
       }
-      const temp = await redisClient.hGetAll('stock_prices');
    } catch (error) {
       console.log(error);
    }

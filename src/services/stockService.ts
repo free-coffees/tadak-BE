@@ -47,10 +47,11 @@ async function readUSCurrentPriceService(itemCode: string) {
       },
       params: {
          AUTH: '',
-         EXCD: 'BAQ',
+         EXCD: 'NAS',
          SYMB: itemCode,
       },
    });
+   console.log(data.data);
    return data.data.output.last;
 }
 

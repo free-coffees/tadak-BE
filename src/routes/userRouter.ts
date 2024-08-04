@@ -40,8 +40,43 @@ const router = express.Router();
  *                       type: string
  *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzYwOTF9.2WUst69Ta9qVPFDQ0HetHB1CsUt43Xg2sEkH_VGH8mM
  *
+ * /user/refresh:
+ *   post:
+ *     summary: Refresh(Access Token 재발급)
+ *     tags: [User]
+ *     parameters:
+ *       - in: header
+ *         name: refresh-token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Refresh Token
+ *     responses:
+ *       200:
+ *         description: Refresh Success(Access Token 재발급)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     access_token:
+ *                       type: string
+ *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic
+ *       401:
+ *         description: 유효하지 않은 or 만료된 토큰
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Refresh Token 이 만료되었습니다.
+ *
  */
-
 router.post('/user/login', userController.loginController); // 로그인요청 => at rt 발급
 router.post('/user/refresh', userController.reissueAcessTokenController); // at 재발급
 module.exports = router;

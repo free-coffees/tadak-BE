@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'exchange_rate',
+      'index_kospi',
       {
          id: {
             autoIncrement: true,
@@ -10,8 +10,8 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         rate: {
-            type: DataTypes.DECIMAL(6, 2),
+         price: {
+            type: DataTypes.DECIMAL(7, 2),
             allowNull: false,
          },
       },

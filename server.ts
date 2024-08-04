@@ -12,6 +12,8 @@ const getApiToken = require('./src/utils/getApiToken');
 const updateRedisPrice = require('./src/utils/updateRedisPrice');
 const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
+const addIndexToDB = require('./src/utils/addIndexToDB');
+
 db.sequelize
    .sync({ alter: true })
    .then(() => {
@@ -39,7 +41,7 @@ const server = http.createServer(app);
 //getApiToken();
 
 // set port, listen for requests
-const PORT = process.env.PORT || 10000;
+const PORT = process.env.PORT || 10010;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
    schedule.scheduleJob('0 0/20 * * * *', async function () {
