@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'user',
+      'exchange',
       {
          id: {
             autoIncrement: true,
@@ -10,26 +10,32 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         nickname: {
-            type: DataTypes.STRING,
-         },
-         device_id: {
-            type: DataTypes.STRING,
-         },
-         social_id: {
-            type: DataTypes.STRING,
-         },
-         refresh_token: {
-            type: DataTypes.STRING(1234),
-         },
-         membership_level: {
-            type: DataTypes.ENUM('1', '2'), //1: 기본, 2: 리뷰작성시 등록가능한 종목 10개 이상으로 가능
-            defaultValue: '1',
+         account_id: {
+            type: DataTypes.INTEGER,
             allowNull: false,
          },
-         social: {
-            type: DataTypes.ENUM('none', 'kakao', 'apple'), //1: none, 2: kakao, 3: apple
-            defaultValue: 'none',
+         exchange_date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+         },
+         from_currency: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         to_currency: {
+            type: DataTypes.STRING,
+            allowNull: false,
+         },
+         exchange_rate: {
+            type: DataTypes.DECIMAL(18, 2),
+            allowNull: false,
+         },
+         amount: {
+            type: DataTypes.DECIMAL(18, 2),
+            allowNull: false,
+         },
+         exchanged_amount: {
+            type: DataTypes.DECIMAL(18, 2),
             allowNull: false,
          },
       },

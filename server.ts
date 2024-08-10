@@ -1,4 +1,3 @@
-import { add } from 'cheerio/lib/api/traversing';
 import express, { Request, Response } from 'express';
 
 require('dotenv').config();

@@ -35,7 +35,7 @@ async function readUserById(userId: number) {
 async function readUserByKakaoId(kakaoId: string) {
    const data = await user.findOne({
       where: {
-         kakao_id: kakaoId,
+         social_id: kakaoId,
       },
       raw: true,
    });
