@@ -4,8 +4,7 @@ const redisClient = require('../../database/redis');
 
 async function updateRedisPrice() {
    try {
-      const token = await apiTokenRepo.readApiToken();
-      const access_token = token.access_token;
+      const access_token = await redisClient.get('access_token');
       const list = await redisClient.hKeys('stock_prices');
       for (let i = 0; i < list.length; i++) {
          const data = await axios({

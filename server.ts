@@ -9,6 +9,7 @@ const morgan = require('morgan');
 const schedule = require('node-schedule');
 const getExchangeRateByCrawling = require('./src/utils/exchangeRate');
 const getApiToken = require('./src/utils/getApiToken');
+const updateRedisApiToken = require('./src/utils/updateRedisApiToken');
 const updateRedisPrice = require('./src/utils/updateRedisPrice');
 const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
@@ -39,7 +40,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 const server = http.createServer(app);
 
 //getApiToken();
-
+//updateRedisApiToken();
 //addIndexToDB();
 
 // set port, listen for requests

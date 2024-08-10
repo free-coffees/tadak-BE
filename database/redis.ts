@@ -5,7 +5,7 @@ const redisClient = createClient({
    socket: {
       reconnectStrategy(retries, cause) {
          if (retries < 10) {
-            console.log('fds');
+            console.log(`재시도 횟수 : ${retries}회`);
             return 100;
          }
          return 500;
