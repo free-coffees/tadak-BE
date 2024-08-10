@@ -10,6 +10,10 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
+         date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+         },
          price: {
             type: DataTypes.DECIMAL(7, 2),
             allowNull: false,

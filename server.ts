@@ -1,3 +1,4 @@
+import { add } from 'cheerio/lib/api/traversing';
 import express, { Request, Response } from 'express';
 
 require('dotenv').config();
@@ -40,13 +41,15 @@ const server = http.createServer(app);
 
 //getApiToken();
 
+//addIndexToDB();
+
 // set port, listen for requests
 const PORT = process.env.PORT || 10010;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
    schedule.scheduleJob('0 0/20 * * * *', async function () {
       console.log('update exchange');
-      await getExchangeRateByCrawling(); // 20분 마다 환율 업데이트
+      await getExchangeRateByCrawling(); // 20분 마다 환율 업데이트 => 20분 마다는 redis에 저장하고 하루에 한번 종가 db에 저장할 예정
    });
    schedule.scheduleJob('0 0 0/23 * * *', async function () {
       console.log('get api token');
@@ -55,6 +58,12 @@ server.listen(PORT, () => {
    schedule.scheduleJob('0 0/1 * * * *', async function () {
       console.log('update redis price');
       await updateRedisPrice(); // 1분마다 redis 에 있는 가격 정보 업데이트
+   });
+   schedule.scheduleJob('0 1 5 * * *', async function () {
+      console.log('update nasdaq, s&p500 index of close price'); // 매일 05:01 에 나스닥, s&p500 지수 종가 업데이트
+   });
+   schedule.scheduleJob('0 31 15 * * *', async function () {
+      console.log('update kospi index of close price'); // 매일 15:31 에 코스피 지수 종가 업데이트
    });
 });
 module.exports = server;

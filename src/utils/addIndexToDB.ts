@@ -7,7 +7,9 @@ const idxSP500 = db.idxSP500;
 
 async function addIndexToDB() {
    try {
+      console.time('전체');
       const content = xlsx.parse(fs.readFileSync(`${__dirname}/idx.xlsx`));
+      const promises = [];
       for (let i = 5; i < content[0].data.length; i++) {
          const data = content[0].data[i];
          let date = data[0];
@@ -19,23 +21,29 @@ async function addIndexToDB() {
          const nasdaq = data[4];
          const kospi = data[8];
          console.log(ndate);
-         await idxNasdaq.create({
-            price: nasdaq,
-            createdAt: ndate,
-         });
-
-         await idxSP500.create({
-            price: sp500,
-            createdAt: ndate,
-         });
-
-         ndate.setMinutes(-30);
-
-         await idxKospi.create({
-            price: kospi,
-            createdAt: ndate,
-         });
+         promises.push(
+            idxNasdaq.create({
+               price: nasdaq,
+               date: ndate,
+               createdAt: ndate,
+               updatedAt: ndate,
+            }),
+            idxSP500.create({
+               price: sp500,
+               date: ndate,
+               createdAt: ndate,
+               updatedAt: ndate,
+            }),
+            idxKospi.create({
+               price: kospi,
+               date: ndate,
+               createdAt: ndate.setMinutes(-30),
+               updatedAt: ndate,
+            }),
+         );
+         await Promise.all(promises);
       }
+      console.timeEnd('전체');
       console.log('끝!!');
    } catch (error) {
       console.log(error);
