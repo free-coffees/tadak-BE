@@ -1,5 +1,4 @@
 import axios from 'axios';
-const apiTokenRepo = require('../repositories/apiTokenRepository');
 const redisClient = require('../../database/redis');
 
 async function updateRedisPrice() {

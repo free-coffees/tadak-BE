@@ -1,11 +1,8 @@
 import axios from 'axios';
-const apiTokenRepo = require('../repositories/apiTokenRepository');
 const redisClient = require('../../database/redis');
 
 async function readKRCurrentPriceService(itemCode: string) {
-   const token = await apiTokenRepo.readApiToken();
-   const access_token = token.access_token;
-
+   const access_token = redisClient.get('access_token');
    const isExistedPrice = await redisClient.hGet('stock_prices', itemCode);
    if (isExistedPrice) {
       console.log('redis에 있다!');
@@ -33,8 +30,7 @@ async function readKRCurrentPriceService(itemCode: string) {
 }
 
 async function readUSCurrentPriceService(itemCode: string) {
-   const token = await apiTokenRepo.readApiToken();
-   const access_token = token.access_token;
+   const access_token = await redisClient.get('access_token');
    const data = await axios({
       method: 'GET',
       url: 'https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/price',

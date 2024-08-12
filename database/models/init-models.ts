@@ -1,8 +1,7 @@
-import { HasMany, Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize';
 var exchangeRateModel = require('./exchage_rate');
 var stockModel = require('./stock');
 var searchFrequencyModel = require('./search_frequency');
-var apiTokenModel = require('./api_token');
 var userModel = require('./user');
 var accountModel = require('./account');
 var balanceModel = require('./balance');
@@ -19,7 +18,6 @@ function initModels(sequelize: Sequelize) {
    const exchangeRate = exchangeRateModel(sequelize);
    const stock = stockModel(sequelize);
    const searchFrequency = searchFrequencyModel(sequelize);
-   const apiToken = apiTokenModel(sequelize);
    const user = userModel(sequelize);
    const account = accountModel(sequelize);
    const balance = balanceModel(sequelize);
@@ -60,7 +58,6 @@ function initModels(sequelize: Sequelize) {
       exchangeRate,
       stock,
       searchFrequency,
-      apiToken,
       idxSP500,
       idxKospi,
       idxNasdaq,

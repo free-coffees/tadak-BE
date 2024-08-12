@@ -4,11 +4,12 @@ const redisClient = createClient({
    url: `redis://${process.env.REDIS_USERNAME}:${process.env.REDIS_PASSWORD}@${process.env.REDIS_HOST}:${process.env.REDIS_PORT}/0`,
    socket: {
       reconnectStrategy(retries, cause) {
-         if (retries < 10) {
-            console.log(`재시도 횟수 : ${retries}회`);
-            return 100;
+         if (retries > 20) {
+            console.log('재시도 횟수 20회 초과');
+            return new Error('Too many retries');
+         } else {
+            return 500;
          }
-         return 500;
       },
    },
    //legacyMode: true,

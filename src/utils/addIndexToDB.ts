@@ -8,7 +8,7 @@ const idxSP500 = db.idxSP500;
 async function addIndexToDB() {
    try {
       console.time('전체');
-      const content = xlsx.parse(fs.readFileSync(`${__dirname}/idx.xlsx`));
+      const content = xlsx.parse(fs.readFileSync(`${__dirname}/index.xlsx`));
       const promises = [];
       for (let i = 5; i < content[0].data.length; i++) {
          const data = content[0].data[i];
@@ -21,6 +21,8 @@ async function addIndexToDB() {
          const nasdaq = data[4];
          const kospi = data[8];
          console.log(ndate);
+         let ndate2 = ndate;
+         ndate2.setMinutes(-30);
          promises.push(
             idxNasdaq.create({
                price: nasdaq,
@@ -37,8 +39,8 @@ async function addIndexToDB() {
             idxKospi.create({
                price: kospi,
                date: ndate,
-               createdAt: ndate.setMinutes(-30),
-               updatedAt: ndate,
+               createdAt: ndate2,
+               updatedAt: ndate2,
             }),
          );
          await Promise.all(promises);

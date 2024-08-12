@@ -22,6 +22,7 @@ async function addExchangeRateToDB() {
 
          await exchangeRate.create({
             rate: rate,
+            date: ndate,
             createdAt: ndate,
          });
          //    if (data.data.output) {

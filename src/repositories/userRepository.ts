@@ -58,7 +58,7 @@ async function updateRefreshToken(userId: number, refresh_token: string) {
 async function linkingKakao(deviceId: string, kakaoId: string) {
    const data = user.update(
       {
-         kakao_id: kakaoId,
+         social_id: kakaoId,
          device_id: null,
          social: 'kakao',
       },

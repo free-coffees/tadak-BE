@@ -10,6 +10,10 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
+         date: {
+            type: DataTypes.DATE,
+            allowNull: false,
+         },
          rate: {
             type: DataTypes.DECIMAL(6, 2),
             allowNull: false,

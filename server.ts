@@ -7,13 +7,16 @@ const db = require('./database/index');
 const http = require('http');
 const morgan = require('morgan');
 const schedule = require('node-schedule');
-const getExchangeRateByCrawling = require('./src/utils/exchangeRate');
-const getApiToken = require('./src/utils/getApiToken');
 const updateRedisApiToken = require('./src/utils/updateRedisApiToken');
 const updateRedisPrice = require('./src/utils/updateRedisPrice');
+const updateRedisExchangeRate = require('./src/utils/updateRedisExchangeRate');
+const updateExchangeRate = require('./src/utils/updateExchangeRate');
+const { updateIndexSp500, updateIndexNasdaq } = require('./src/utils/updateIndexUS');
+const updateIndexKospi = require('./src/utils/updateIndexKospi');
 const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
 const addIndexToDB = require('./src/utils/addIndexToDB');
+const addExchangeRateToDB = require('./src/utils/addExchangeRateToDB');
 
 db.sequelize
    .sync({ alter: true })
@@ -39,7 +42,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const server = http.createServer(app);
 
-//getApiToken();
+//addExchangeRateToDB();
 //updateRedisApiToken();
 //addIndexToDB();
 
@@ -47,23 +50,30 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10010;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   schedule.scheduleJob('0 0/20 * * * *', async function () {
+   schedule.scheduleJob('*/20 * * * *', async function () {
       console.log('update exchange');
-      await getExchangeRateByCrawling(); // 20분 마다 환율 업데이트 => 20분 마다는 redis에 저장하고 하루에 한번 종가 db에 저장할 예정
+      await updateRedisExchangeRate(); // 20분 마다 환율 업데이트 => 20분 마다는 redis에 저장하고 하루에 한번 종가 db에 저장할 예정
    });
-   schedule.scheduleJob('0 0 0/23 * * *', async function () {
+   schedule.scheduleJob('59 23 * * *', async function () {
+      console.log('update today exchange'); // 매일 23:59 에 당일 환율 db에 저장
+      await updateExchangeRate();
+   });
+   schedule.scheduleJob('0 */8 * * *', async function () {
       console.log('get api token');
-      await getApiToken(); // 23시간 마다 open api token 재발급
+      await updateRedisApiToken(); // 8시간 마다 open api token 재발급
    });
-   schedule.scheduleJob('0 0/1 * * * *', async function () {
+   schedule.scheduleJob('*/1 * * * *', async function () {
       console.log('update redis price');
       await updateRedisPrice(); // 1분마다 redis 에 있는 가격 정보 업데이트
    });
-   schedule.scheduleJob('0 1 5 * * *', async function () {
-      console.log('update nasdaq, s&p500 index of close price'); // 매일 05:01 에 나스닥, s&p500 지수 종가 업데이트
+   schedule.scheduleJob('1 5 * * *', async function () {
+      console.log('update today nasdaq, s&p500 index of close price'); // 매일 05:01 에 나스닥, s&p500 지수 종가 업데이트
+      await updateIndexSp500();
+      await updateIndexNasdaq();
    });
-   schedule.scheduleJob('0 31 15 * * *', async function () {
-      console.log('update kospi index of close price'); // 매일 15:31 에 코스피 지수 종가 업데이트
+   schedule.scheduleJob('31 15 * * *', async function () {
+      console.log('update today kospi index of close price'); // 매일 15:31 에 코스피 지수 종가 업데이트
+      await updateIndexKospi();
    });
 });
 module.exports = server;

@@ -1,6 +1,5 @@
 import axios from 'axios';
 const redisClient = require('../../database/redis');
-const apiTokenRepo = require('../repositories/apiTokenRepository');
 
 async function updateRedisApiToken() {
    try {
@@ -18,7 +17,6 @@ async function updateRedisApiToken() {
       });
       await redisClient.set('access_token', data.data.access_token);
       console.log('update api token');
-      //return data.data;
    } catch (error: any) {
       console.log(error.response.data);
    }

@@ -4,7 +4,9 @@ const sequelize = require('sequelize');
 const exchangeRate = db.exchangeRate;
 
 async function createExchangeRate(rate: number) {
-   await exchangeRate.create({ rate: rate });
+   const today = new Date();
+   today.setHours(0, 0, 0, 0);
+   await exchangeRate.create({ rate: rate, date: today });
 }
 
 async function readExchangeRateByDate() {
