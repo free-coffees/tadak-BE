@@ -9,7 +9,6 @@ async function readKRCurrentPriceController(req: Request, res: Response) {
    try {
       const itemCode: string = req.params.id;
       const data = await stockService.readKRCurrentPriceService(itemCode);
-      console.log(data);
       return res.status(StatusCodes.OK).send({ data });
    } catch (error: any) {
       if (axios.isAxiosError(error)) {

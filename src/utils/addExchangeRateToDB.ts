@@ -18,24 +18,12 @@ async function addExchangeRateToDB() {
          let date = content[0].data[i][0];
          date = date.replace(/\./g, '/');
          let ndate = new Date(date);
-         console.log(ndate);
 
          await exchangeRate.create({
             rate: rate,
             date: ndate,
             createdAt: ndate,
          });
-         //    if (data.data.output) {
-         //       await stock.create({
-         //          stock_code: content[0].data[i][0],
-         //          stock_name_kr: data.data.output.prdt_abrv_name,
-         //          stock_name_en: data.data.output.prdt_eng_abrv_name,
-         //          market: 'ETN',
-         //       });
-         //    } else {
-         //       console.log(data.data);
-         //       console.log(content[0].data[i][0]);
-         //    }
       }
       console.log('끝!!');
    } catch (error) {

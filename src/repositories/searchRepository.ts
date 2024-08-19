@@ -12,7 +12,9 @@ async function createSearchFrequency(stockId: number) {
    });
 }
 
-async function readSearchList(searchWord: string) {
+async function readSearchList(searchWord: string, page: number) {
+   const limit = 10;
+   const offset = (page - 1) * limit;
    const data = await stock.findAll({
       attributes: [
          ['id', 'stock_id'],
@@ -37,6 +39,8 @@ async function readSearchList(searchWord: string) {
          },
       ],
       order: [['frequency', 'DESC']],
+      limit: limit,
+      offset: offset,
       raw: true,
    });
 

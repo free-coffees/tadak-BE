@@ -3,8 +3,8 @@ import ApiError from '../errorCuston.ts/apiError';
 const searchRepo = require('../repositories/searchRepository');
 const stockRepo = require('../repositories/stockRepository');
 
-async function getSearchListService(searchWord: string) {
-   const searchList = await searchRepo.readSearchList(searchWord);
+async function getSearchListService(searchWord: string, page: number) {
+   const searchList = await searchRepo.readSearchList(searchWord, page);
    return searchList;
 }
 

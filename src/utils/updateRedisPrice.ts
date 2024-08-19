@@ -24,7 +24,7 @@ async function updateRedisPrice() {
          await redisClient.hSet('stock_prices', list[i], data.data.output.stck_prpr);
       }
    } catch (error) {
-      console.log('sdf', error);
+      console.log(error);
    }
 }
 

@@ -7,7 +7,8 @@ const searchService = require('../services/searchService');
 async function getSearchListController(req: Request, res: Response) {
    try {
       const searchWord: string = String(req.query.word);
-      const data = await searchService.getSearchListService(searchWord);
+      const page: number = Number(req.query.page);
+      const data = await searchService.getSearchListService(searchWord, page);
       return res.status(StatusCodes.OK).send({ data });
    } catch (error) {
       if (error instanceof ApiError) {
