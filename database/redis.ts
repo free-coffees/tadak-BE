@@ -8,6 +8,7 @@ const redisClient = createClient({
             console.log('재시도 횟수 20회 초과');
             return new Error('Too many retries');
          } else {
+            console.log('연결 재시도');
             return 500;
          }
       },

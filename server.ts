@@ -52,10 +52,10 @@ server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
    schedule.scheduleJob('*/20 * * * *', async function () {
       console.log('update exchange');
-      await updateRedisExchangeRate(); // 20분 마다 환율 업데이트 => 20분 마다는 redis에 저장하고 하루에 한번 종가 db에 저장할 예정
+      await updateRedisExchangeRate(); // 20분 마다 환율 업데이트
    });
-   schedule.scheduleJob('59 23 * * *', async function () {
-      console.log('update today exchange'); // 매일 23:59 에 당일 환율 db에 저장
+   schedule.scheduleJob('55 23 * * *', async function () {
+      console.log('update today exchange'); // 매일 23:55 에 당일 환율 db에 저장
       await updateExchangeRate();
    });
    schedule.scheduleJob('0 */8 * * *', async function () {

@@ -15,9 +15,12 @@ async function getSearchListController(req: Request, res: Response) {
          return res.status(StatusCodes.OK).send({ data });
       }
    } catch (error) {
-      const err = error as ApiError;
-      console.log(err);
-      return res.status(err.statusCode || 500).json({ message: err.message });
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         console.log(error);
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
    }
 }
 

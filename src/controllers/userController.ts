@@ -10,8 +10,12 @@ async function loginController(req: Request, res: Response) {
       const data = await userService.loginService(deviceId);
       return res.status(StatusCodes.OK).send({ data });
    } catch (error) {
-      const err = error as ApiError;
-      return res.status(err.statusCode || 500).json({ message: err.message });
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         console.log(error);
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
    }
 }
 
@@ -28,9 +32,12 @@ async function reissueAcessTokenController(req: Request, res: Response) {
             return res.status(401).json({ message: 'Refresh Token 이 유효하지 않습니다.' });
          }
       } else {
-         console.log(error);
-         const err = error as ApiError;
-         return res.status(err.statusCode || 500).json({ message: err.message });
+         if (error instanceof ApiError) {
+            return res.status(error.statusCode).json({ message: error.message });
+         } else {
+            console.log(error);
+            return res.status(500).json({ message: 'Internal Server Error' });
+         }
       }
    }
 }

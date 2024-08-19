@@ -20,8 +20,12 @@ async function readKRCurrentPriceController(req: Request, res: Response) {
             return res.status(error.response?.status || 500).json({ message: error.response?.statusText });
          }
       } else {
-         const err = error as ApiError;
-         return res.status(err.statusCode || 500).json({ message: err.message });
+         if (error instanceof ApiError) {
+            return res.status(error.statusCode).json({ message: error.message });
+         } else {
+            console.log(error);
+            return res.status(500).json({ message: 'Internal Server Error' });
+         }
       }
    }
 }
@@ -39,9 +43,11 @@ async function readUSCurrentPriceController(req: Request, res: Response) {
          } else {
             return res.status(error.response?.status || 500).json({ message: error.response?.statusText });
          }
+      } else if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
       } else {
-         const err = error as ApiError;
-         return res.status(err.statusCode || 500).json({ message: err.message });
+         console.log(error);
+         return res.status(500).json({ message: 'Internal Server Error' });
       }
    }
 }
