@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../utils/api.error';
+import ApiError from '../errorCuston.ts/apiError';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 const userService = require('../services/userService');
 

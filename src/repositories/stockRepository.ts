@@ -8,7 +8,7 @@ const stock = db.stock;
 async function readStockByName(searchWord: string) {
    const data = await stock.findOne({
       where: {
-         [Op.or]: [{ stock_name_kr: searchWord }, { stock_name_en: searchWord }],
+         [Op.or]: [{ stock_code: searchWord }, { stock_name_kr: searchWord }, { stock_name_en: searchWord }],
       },
       raw: true,
    });

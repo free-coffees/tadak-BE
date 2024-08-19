@@ -1,21 +1,20 @@
-import ApiError from '../utils/api.error';
+import ApiError from '../errorCuston.ts/apiError';
 
 const searchRepo = require('../repositories/searchRepository');
 const stockRepo = require('../repositories/stockRepository');
 
 async function getSearchListService(searchWord: string) {
    const searchList = await searchRepo.readSearchList(searchWord);
-   const isExistedStock = await stockRepo.readStockByName(searchWord);
-   console.log(isExistedStock);
-   if (isExistedStock) {
-      const isExistedSearchFrequency = await searchRepo.readSearchFrequency(isExistedStock.id);
-      if (isExistedSearchFrequency) {
-         await searchRepo.updateSearchFrequency(isExistedStock.id);
-      } else {
-         await searchRepo.createSearchFrequency(isExistedStock.id);
-      }
-   }
    return searchList;
 }
 
-module.exports = { getSearchListService };
+async function updateSearchFrequencyService(stock_id: number) {
+   const isExistedSearchFrequency = await searchRepo.readSearchFrequency(stock_id);
+   if (isExistedSearchFrequency) {
+      await searchRepo.updateSearchFrequency(stock_id);
+   } else {
+      await searchRepo.createSearchFrequency(stock_id);
+   }
+}
+
+module.exports = { getSearchListService, updateSearchFrequencyService };

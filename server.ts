@@ -51,29 +51,29 @@ const PORT = process.env.PORT || 10010;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
    schedule.scheduleJob('*/20 * * * *', async function () {
-      console.log('update exchange');
       await updateRedisExchangeRate(); // 20분 마다 환율 업데이트
+      console.log('update exchange');
    });
    schedule.scheduleJob('55 23 * * *', async function () {
-      console.log('update today exchange'); // 매일 23:55 에 당일 환율 db에 저장
-      await updateExchangeRate();
+      await updateExchangeRate(); // 매일 23:55 에 당일 환율 db에 저장
+      console.log('update today exchange');
    });
    schedule.scheduleJob('0 */8 * * *', async function () {
-      console.log('get api token');
       await updateRedisApiToken(); // 8시간 마다 open api token 재발급
+      console.log('get api token');
    });
    schedule.scheduleJob('*/1 * * * *', async function () {
-      console.log('update redis price');
       await updateRedisPrice(); // 1분마다 redis 에 있는 가격 정보 업데이트
+      console.log('update redis price');
    });
    schedule.scheduleJob('1 5 * * *', async function () {
-      console.log('update today nasdaq, s&p500 index of close price'); // 매일 05:01 에 나스닥, s&p500 지수 종가 업데이트
       await updateIndexSp500();
       await updateIndexNasdaq();
+      console.log('update today nasdaq, s&p500 index of close price'); // 매일 05:01 에 나스닥, s&p500 지수 종가 업데이트
    });
    schedule.scheduleJob('31 15 * * *', async function () {
-      console.log('update today kospi index of close price'); // 매일 15:31 에 코스피 지수 종가 업데이트
       await updateIndexKospi();
+      console.log('update today kospi index of close price'); // 매일 15:31 에 코스피 지수 종가 업데이트
    });
 });
 module.exports = server;
