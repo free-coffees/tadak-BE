@@ -31,4 +31,33 @@ async function addExchangeRateToDB() {
    }
 }
 
-module.exports = addExchangeRateToDB;
+async function updateExchangeRateAtDB() {
+   try {
+      const list = await exchangeRate.findAll({ raw: true });
+      //console.log(list);
+      let prev = list[0];
+      for (let i = 1; i < list.length; i++) {
+         let now = list[i];
+         let temp = now.date.getDate() - prev.date.getDate();
+         let temp2 = prev.rate;
+         console.log(prev, now);
+         console.log(temp);
+         while (temp > 1) {
+            prev.date = new Date(prev.date.setDate(prev.date.getDate() + 1));
+            await exchangeRate.create({
+               date: prev.date,
+               rate: temp2,
+               createdAt: prev.date,
+               updatedAt: prev.date,
+            });
+            console.log(prev.date);
+            temp--;
+         }
+         prev = now;
+      }
+   } catch (error) {
+      console.log(error);
+   }
+}
+
+module.exports = { addExchangeRateToDB, updateExchangeRateAtDB };

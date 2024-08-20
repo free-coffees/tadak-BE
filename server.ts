@@ -17,6 +17,7 @@ const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
 const addIndexToDB = require('./src/utils/addIndexToDB');
 const addExchangeRateToDB = require('./src/utils/addExchangeRateToDB');
+const { updateExchangeRateAtDB } = require('./src/utils/addExchangeRateToDB');
 
 db.sequelize
    .sync({ alter: true })
@@ -45,6 +46,7 @@ const server = http.createServer(app);
 //addExchangeRateToDB();
 //updateRedisApiToken();
 //addIndexToDB();
+//updateExchangeRateAtDB();
 
 // set port, listen for requests
 const PORT = process.env.PORT || 10010;
