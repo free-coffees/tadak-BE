@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ApiError from '../errorCuston.ts/apiError';
+import ApiError from '../errorCuston/apiError';
 import jwt, { JsonWebTokenError, TokenExpiredError } from 'jsonwebtoken';
 
 const userRepo = require('../repositories/userRepository');

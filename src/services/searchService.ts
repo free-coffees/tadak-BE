@@ -1,4 +1,4 @@
-import ApiError from '../errorCuston.ts/apiError';
+import ApiError from '../errorCuston/apiError';
 
 const searchRepo = require('../repositories/searchRepository');
 const stockRepo = require('../repositories/stockRepository');

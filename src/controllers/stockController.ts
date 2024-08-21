@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../errorCuston.ts/apiError';
+import ApiError from '../errorCuston/apiError';
 import axios, { AxiosError } from 'axios';
 
 const stockService = require('../services/stockService');

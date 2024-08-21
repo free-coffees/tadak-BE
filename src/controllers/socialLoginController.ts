@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { STATUS_CODES } from 'http';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../errorCuston.ts/apiError';
+import ApiError from '../errorCuston/apiError';
 const socialLoginService = require('../services/socialLoginService');
 
 async function kakaoLoginController(req: Request, res: Response) {
