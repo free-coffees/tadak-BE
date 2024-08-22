@@ -21,8 +21,8 @@ async function loginController(req: Request, res: Response) {
 
 async function reissueAcessTokenController(req: Request, res: Response) {
    try {
-      const refresh_token = req.headers['refresh-token']; // 400, refresh 필요
-      const data = await userService.reissueAcessTokenService(refresh_token);
+      const refreshToken = req.headers['refresh-token']; // 400, refresh 필요
+      const data = await userService.reissueAcessTokenService(refreshToken);
       return res.status(StatusCodes.OK).send({ data });
    } catch (error: any) {
       if (error instanceof JsonWebTokenError) {

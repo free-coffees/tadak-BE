@@ -22,12 +22,12 @@ async function getSearchListController(req: Request, res: Response) {
 
 async function updateSearchFrequencyController(req: Request, res: Response) {
    try {
-      const stock_id: number = Number(req.params.stockId);
-      if (!stock_id) {
+      const stockId: number = Number(req.params.stockId);
+      if (!stockId) {
          const error = new ApiError(400, 'stockId is required');
          throw error;
       }
-      await searchService.updateSearchFrequencyService(stock_id);
+      await searchService.updateSearchFrequencyService(stockId);
       return res.status(StatusCodes.OK).send({ message: 'Search Frequency is updated' });
    } catch (error) {
       if (error instanceof ApiError) {

@@ -3,7 +3,7 @@ import ApiError from '../errorCuston/apiError';
 const userRepo = require('../repositories/userRepository');
 const secret_key = process.env.SECRET_KEY as string;
 
-async function loginService(deviceId: string): Promise<{ access_token: string; refresh_token: string }> {
+async function loginService(deviceId: string): Promise<{ accessToken: string; refreshToken: string }> {
    let isExistedUser = await userRepo.readUserByDeviceId(deviceId);
 
    if (!isExistedUser) {
@@ -15,34 +15,34 @@ async function loginService(deviceId: string): Promise<{ access_token: string; r
       id: isExistedUser.id,
    };
 
-   const access_token = jwt.sign(payload, secret_key, {
+   const accessToken = jwt.sign(payload, secret_key, {
       algorithm: 'HS256',
       expiresIn: '12h',
    });
 
-   const refresh_token = jwt.sign(payload, secret_key, {
+   const refreshToken = jwt.sign(payload, secret_key, {
       algorithm: 'HS256',
       expiresIn: '7 days',
    });
 
-   await userRepo.updateRefreshToken(isExistedUser.id, refresh_token);
+   await userRepo.updateRefreshToken(isExistedUser.id, refreshToken);
 
-   return { access_token, refresh_token };
+   return { accessToken, refreshToken };
 }
 
-async function reissueAcessTokenService(refresh_token: string) {
-   let access_token: string = '';
-   const decoded = await jwt.verify(refresh_token, secret_key);
+async function reissueAcessTokenService(refreshToken: string) {
+   let accessToken: string = '';
+   const decoded = await jwt.verify(refreshToken, secret_key);
    if (typeof decoded == 'string') {
       const error = new ApiError(401, 'Refresh Token 이 유효하지 않습니다.');
       throw error;
    } else {
       const isExistedUser = await userRepo.readUserById(decoded.id);
-      if (isExistedUser.refresh_token == refresh_token) {
+      if (isExistedUser.refresh_token == refreshToken) {
          const payload = {
             id: decoded.id,
          };
-         access_token = jwt.sign(payload, secret_key, {
+         accessToken = jwt.sign(payload, secret_key, {
             algorithm: 'HS256',
             expiresIn: '12h',
          });
@@ -51,7 +51,7 @@ async function reissueAcessTokenService(refresh_token: string) {
          throw error;
       }
    }
-   return { access_token };
+   return { accessToken };
 }
 
 module.exports = { loginService, reissueAcessTokenService };

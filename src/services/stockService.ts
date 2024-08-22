@@ -2,7 +2,7 @@ import axios from 'axios';
 const redisClient = require('../../database/redis');
 
 async function readKRCurrentPriceService(itemCode: string) {
-   const access_token = redisClient.get('access_token');
+   const accessToken = redisClient.get('access_token');
    const isExistedPrice = await redisClient.hGet('stock_prices', itemCode);
    if (isExistedPrice) {
       console.log('redis에 있다!');
@@ -13,7 +13,7 @@ async function readKRCurrentPriceService(itemCode: string) {
          url: 'https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-price',
          headers: {
             'Content-Type': 'application/json; charset=UTF-8',
-            authorization: 'Bearer ' + access_token,
+            authorization: 'Bearer ' + accessToken,
             appkey: process.env.STOCK_KEY,
             appsecret: process.env.STOCK_SECRET_KEY,
             tr_id: 'FHKST01010100',
@@ -30,13 +30,13 @@ async function readKRCurrentPriceService(itemCode: string) {
 }
 
 async function readUSCurrentPriceService(itemCode: string) {
-   const access_token = await redisClient.get('access_token');
+   const accessToken = await redisClient.get('access_token');
    const data = await axios({
       method: 'GET',
       url: 'https://openapi.koreainvestment.com:9443/uapi/overseas-price/v1/quotations/price',
       headers: {
          'Content-Type': 'application/json; charset=UTF-8',
-         authorization: 'Bearer ' + access_token,
+         authorization: 'Bearer ' + accessToken,
          appkey: process.env.STOCK_KEY,
          appsecret: process.env.STOCK_SECRET_KEY,
          tr_id: 'HHDFS00000300',

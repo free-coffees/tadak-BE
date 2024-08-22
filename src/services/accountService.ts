@@ -4,10 +4,10 @@ const db = require('../../database/index');
 const accountRepo = require('../repositories/accountRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 
-async function createAccountService(account_name: string, user_id: number) {
+async function createAccountService(accountName: string, userId: number) {
    const transaction = await db.sequelize.transaction();
    try {
-      const account = await accountRepo.createAccount(account_name, user_id, transaction);
+      const account = await accountRepo.createAccount(accountName, userId, transaction);
       await balanceRepo.createBalance(account.id, 'KRW', transaction);
       await balanceRepo.createBalance(account.id, 'USD', transaction);
       await transaction.commit();

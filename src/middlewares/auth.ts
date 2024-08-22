@@ -7,8 +7,8 @@ const userRepo = require('../repositories/userRepository');
 async function auth(req: Request, res: Response, next: NextFunction) {
    try {
       if (req.headers['access-token']) {
-         const access_token = req.headers['access-token'] as string;
-         const decoded = await jwt.verify(access_token, process.env.SECRET_KEY as string);
+         const accessToken = req.headers['access-token'] as string;
+         const decoded = await jwt.verify(accessToken, process.env.SECRET_KEY as string);
          if (typeof decoded == 'object') {
             const isExistedUser = await userRepo.readUserById(decoded.id);
             if (isExistedUser) {

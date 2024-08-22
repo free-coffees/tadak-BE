@@ -1,11 +1,10 @@
 const db = require('../../database/index');
 const account = db.account;
 
-async function createAccount(account_name: string, user_id: number) {
+async function createAccount(accountName: string, userId: number) {
    const data = await account.create({
-      account_name: account_name,
-      user_id: user_id,
-      raw: true,
+      account_name: accountName,
+      user_id: userId,
    });
    return data;
 }

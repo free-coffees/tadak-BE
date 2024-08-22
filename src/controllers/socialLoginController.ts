@@ -26,7 +26,7 @@ async function kakaoAuthController(req: Request, res: Response) {
       const deviceId = req.query.state;
       const data = await socialLoginService.kakaoLoginService(authCode, deviceId);
       return res.redirect(
-         `http://localhost:3000/loginRedirect?access_token=${data.access_token}&refresh_token=${data.refresh_token}`,
+         `http://localhost:3000/loginRedirect?access_token=${data.accessToken}&refresh_token=${data.refreshToken}`,
       ); // redirect
    } catch (error) {
       if (error instanceof ApiError) {

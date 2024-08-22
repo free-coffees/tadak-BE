@@ -1,9 +1,9 @@
 import express from 'express';
-const accountController = require('../controllers/accountController');
+const transferController = require('../controllers/transferController');
 const auth = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.post('/account', auth, accountController.createAccountController); // 계좌추가
+router.post('/transfer', auth, transferController.createTransferController); // 계좌 입출금
 
 module.exports = router;

@@ -42,10 +42,10 @@ async function readUserByKakaoId(kakaoId: string) {
    return data;
 }
 
-async function updateRefreshToken(userId: number, refresh_token: string) {
+async function updateRefreshToken(userId: number, refreshToken: string) {
    await user.update(
       {
-         refresh_token: refresh_token,
+         refresh_token: refreshToken,
       },
       {
          where: {

@@ -8,12 +8,12 @@ async function getSearchListService(searchWord: string, page: number) {
    return searchList;
 }
 
-async function updateSearchFrequencyService(stock_id: number) {
-   const isExistedSearchFrequency = await searchRepo.readSearchFrequency(stock_id);
+async function updateSearchFrequencyService(stockId: number) {
+   const isExistedSearchFrequency = await searchRepo.readSearchFrequency(stockId);
    if (isExistedSearchFrequency) {
-      await searchRepo.updateSearchFrequency(stock_id);
+      await searchRepo.updateSearchFrequency(stockId);
    } else {
-      await searchRepo.createSearchFrequency(stock_id);
+      await searchRepo.createSearchFrequency(stockId);
    }
 }
 
