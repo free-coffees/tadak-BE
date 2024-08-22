@@ -14,7 +14,7 @@ const router = express.Router();
  *       type: apiKey
  *       in: header
  *       name: access-token
- *       description: Enter your JWT token in the format Bearer <token>
+ *       description: Enter your Access Token
  *
  * security:
  *   - accessTokenAuth: []

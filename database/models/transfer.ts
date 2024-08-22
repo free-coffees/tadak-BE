@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'deposit_withdrawl',
+      'transfer',
       {
          id: {
             autoIncrement: true,
@@ -14,11 +14,11 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         transaction_date: {
+         transfer_date: {
             type: DataTypes.DATE,
             allowNull: false,
          },
-         transaction_type: {
+         transfer_type: {
             type: DataTypes.ENUM('DEPOSIT', 'WITHDRAWL'), // 입금, 출금
             allowNull: false,
          },

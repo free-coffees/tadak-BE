@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 
 require('dotenv').config();
 const routes = require('./src/routes/index');
@@ -13,11 +13,8 @@ const updateRedisExchangeRate = require('./src/utils/updateRedisExchangeRate');
 const updateExchangeRate = require('./src/utils/updateExchangeRate');
 const { updateIndexSp500, updateIndexNasdaq } = require('./src/utils/updateIndexUS');
 const updateIndexKospi = require('./src/utils/updateIndexKospi');
-const { swaggerUi, swaggerSpec } = require('./swaggers/swagger');
 
-const addIndexToDB = require('./src/utils/addIndexToDB');
-const addExchangeRateToDB = require('./src/utils/addExchangeRateToDB');
-const { updateExchangeRateAtDB } = require('./src/utils/addExchangeRateToDB');
+const { swaggerSpec, swaggerUi } = require('./swaggers/swagger');
 
 db.sequelize
    .sync({ alter: true })
@@ -42,11 +39,6 @@ app.use(routes);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 const server = http.createServer(app);
-
-//addExchangeRateToDB();
-//updateRedisApiToken();
-//addIndexToDB();
-//updateExchangeRateAtDB();
 
 // set port, listen for requests
 const PORT = process.env.PORT || 10010;

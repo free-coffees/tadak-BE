@@ -1,13 +1,13 @@
-const swaggerUi = require('swagger-ui-express');
 const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerUi = require('swagger-ui-express');
 
 const options = {
    swaggerDefinition: {
       openapi: '3.0.0',
       info: {
-         title: 'STOCK API TEST',
+         title: 'STOCK API',
          version: '1.0.0',
-         description: 'STOCK API TEST',
+         description: 'STOCK API',
       },
       servers: [
          {
@@ -21,4 +21,4 @@ const options = {
 
 const swaggerSpec = swaggerJSDoc(options);
 
-module.exports = { swaggerUi, swaggerSpec };
+module.exports = { swaggerSpec, swaggerUi };

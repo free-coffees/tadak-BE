@@ -5,7 +5,7 @@ var searchFrequencyModel = require('./search_frequency');
 var userModel = require('./user');
 var accountModel = require('./account');
 var balanceModel = require('./balance');
-var depositWithdrawlModel = require('./deposit_withdrawl');
+var transferModel = require('./transfer');
 var exchangeModel = require('./exchange');
 var transactionModel = require('./transaction');
 var holdingModel = require('./holding');
@@ -21,7 +21,7 @@ function initModels(sequelize: Sequelize) {
    const user = userModel(sequelize);
    const account = accountModel(sequelize);
    const balance = balanceModel(sequelize);
-   const depositWithdrawl = depositWithdrawlModel(sequelize);
+   const transfer = transferModel(sequelize);
    const exchange = exchangeModel(sequelize);
    const transaction = transactionModel(sequelize);
    const holding = holdingModel(sequelize);
@@ -32,8 +32,8 @@ function initModels(sequelize: Sequelize) {
 
    user.hasMany(account, { foreignKey: 'user_id' });
    account.belongsTo(user, { foreignKey: 'user_id' });
-   account.hasMany(depositWithdrawl, { foreignKey: 'account_id' });
-   depositWithdrawl.belongsTo(account, { foreignKey: 'account_id' });
+   account.hasMany(transfer, { foreignKey: 'account_id' });
+   transfer.belongsTo(account, { foreignKey: 'account_id' });
    account.hasMany(exchange, { foreignKey: 'account_id' });
    exchange.belongsTo(account, { foreignKey: 'account_id' });
    account.hasMany(balance, { foreignKey: 'account_id' });
@@ -61,7 +61,7 @@ function initModels(sequelize: Sequelize) {
       idxSP500,
       idxKospi,
       idxNasdaq,
-      depositWithdrawl,
+      transfer,
       account,
       balance,
       exchange,
