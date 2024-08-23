@@ -15,27 +15,29 @@ async function auth(req: Request, res: Response, next: NextFunction) {
                req.userId = decoded.id;
                next();
             } else {
-               const error = new ApiError(401, '존재하지 않는 유저 입니다.');
+               const error = new ApiError(401, 'User is not existed.');
                throw error;
             }
          } else {
-            const error = new ApiError(401, 'Access Token 이 유효하지 않습니다.');
+            const error = new ApiError(401, 'Access Token is not valid.');
             throw error;
          }
       } else {
-         const error = new ApiError(401, 'Access Token 이 포함되어 있지 않습니다.');
+         const error = new ApiError(401, 'Access Token is not included.');
          throw error;
       }
    } catch (error) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
-            return res.status(419).json({ message: 'Access Token 이 만료되었습니다.' });
+            return res.status(419).json({ message: 'Access Token is expired.' });
          } else {
-            return res.status(401).json({ message: 'Access Token 이 유효하지 않습니다.' });
+            return res.status(401).json({ message: 'Access Token is not valid' });
          }
+      } else if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
       } else {
-         const err = error as ApiError;
-         return res.status(err.statusCode || 500).json({ message: err.message });
+         console.log(error);
+         return res.status(500).json({ message: 'Internal Server Error' });
       }
    }
 }

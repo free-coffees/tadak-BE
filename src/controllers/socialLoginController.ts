@@ -6,7 +6,7 @@ const socialLoginService = require('../services/socialLoginService');
 
 async function kakaoLoginController(req: Request, res: Response) {
    try {
-      const deviceId = req.query.device_id; // 추후 access_token으로 대체
+      const deviceId = req.query.deviceId; // 추후 access_token으로 대체
       return res.redirect(
          `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_APP_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&state=${deviceId}`,
       );

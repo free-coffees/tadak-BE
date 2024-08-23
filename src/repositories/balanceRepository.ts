@@ -1,7 +1,10 @@
+import { Transaction } from 'sequelize';
+import { createTransferDTO } from '../dto/transferDTO';
+
 const db = require('../../database/index');
 const balance = db.balance;
 
-async function createBalance(accountId: number, currency: string, transaction: any) {
+async function createBalance(accountId: number, currency: string, transaction: Transaction) {
    const data = await balance.create(
       {
          account_id: accountId,
@@ -15,4 +18,33 @@ async function createBalance(accountId: number, currency: string, transaction: a
    return data;
 }
 
-module.exports = { createBalance };
+async function updateBalanceByTransfer(createTransferDTO: createTransferDTO, transaction: Transaction) {
+   const { accountId, transferType, amount } = createTransferDTO;
+   const data = await balance.findOne(
+      { where: { account_id: accountId, currency: 'krw' }, raw: true },
+      { transaction },
+   );
+   let sum = Number(data.amount);
+
+   if (transferType == 'deposit') {
+      sum += amount;
+   } else {
+      sum -= amount;
+   }
+   await balance.update(
+      {
+         amount: sum,
+      },
+      {
+         where: {
+            account_id: accountId,
+            currency: 'krw',
+         },
+      },
+      {
+         transaction,
+      },
+   );
+}
+
+module.exports = { createBalance, updateBalanceByTransfer };

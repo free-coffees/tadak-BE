@@ -19,7 +19,7 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          transfer_type: {
-            type: DataTypes.ENUM('DEPOSIT', 'WITHDRAWL'), // 입금, 출금
+            type: DataTypes.ENUM('deposit', 'withdrawl'), // 입금, 출금
             allowNull: false,
          },
          amount: {

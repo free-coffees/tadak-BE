@@ -6,14 +6,14 @@ const accountService = require('../services/accountService');
 
 async function createAccountController(req: Request, res: Response) {
    try {
-      const user_id = req.userId;
-      const { account_name } = req.body;
-      if (!account_name || account_name == '') {
+      const userId = req.userId;
+      const { accountName } = req.body;
+      if (!accountName || accountName == '') {
          const error = new ApiError(400, 'Invalid Request');
          throw error;
       }
-      await accountService.createAccountService(account_name, user_id);
-      return res.status(StatusCodes.OK).send({ message: '계좌가 성공적으로 생성되었습니다.' });
+      await accountService.createAccountService(accountName, userId);
+      return res.status(StatusCodes.OK).send({ message: 'Account is successfully created.' });
    } catch (error) {
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });

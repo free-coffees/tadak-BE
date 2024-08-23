@@ -23,7 +23,7 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          transaction_type: {
-            type: DataTypes.ENUM('BUY', 'SELL'), // 매수, 매도
+            type: DataTypes.ENUM('buy', 'sell'), // 매수, 매도
             allowNull: false,
          },
          quantity: {
@@ -35,7 +35,7 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          currency: {
-            type: DataTypes.ENUM('KRW', 'USD'),
+            type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
          total_amount: {

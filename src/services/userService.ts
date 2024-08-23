@@ -34,7 +34,7 @@ async function reissueAcessTokenService(refreshToken: string) {
    let accessToken: string = '';
    const decoded = await jwt.verify(refreshToken, secret_key);
    if (typeof decoded == 'string') {
-      const error = new ApiError(401, 'Refresh Token 이 유효하지 않습니다.');
+      const error = new ApiError(401, 'Refresh Token is not valid.');
       throw error;
    } else {
       const isExistedUser = await userRepo.readUserById(decoded.id);
@@ -47,7 +47,7 @@ async function reissueAcessTokenService(refreshToken: string) {
             expiresIn: '12h',
          });
       } else {
-         const error = new ApiError(401, 'Refresh Token 이 유효하지 않습니다.');
+         const error = new ApiError(401, 'Refresh Token is not valid.');
          throw error;
       }
    }

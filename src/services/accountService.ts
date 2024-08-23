@@ -1,3 +1,4 @@
+import { Transaction } from 'sequelize';
 import ApiError from '../errorCuston/apiError';
 
 const db = require('../../database/index');
@@ -5,7 +6,7 @@ const accountRepo = require('../repositories/accountRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 
 async function createAccountService(accountName: string, userId: number) {
-   const transaction = await db.sequelize.transaction();
+   const transaction: Transaction = await db.sequelize.transaction();
    try {
       const account = await accountRepo.createAccount(accountName, userId, transaction);
       await balanceRepo.createBalance(account.id, 'KRW', transaction);

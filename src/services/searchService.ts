@@ -1,7 +1,4 @@
-import ApiError from '../errorCuston/apiError';
-
 const searchRepo = require('../repositories/searchRepository');
-const stockRepo = require('../repositories/stockRepository');
 
 async function getSearchListService(searchWord: string, page: number) {
    const searchList = await searchRepo.readSearchList(searchWord, page);

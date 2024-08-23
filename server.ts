@@ -44,13 +44,13 @@ const server = http.createServer(app);
 const PORT = process.env.PORT || 10010;
 server.listen(PORT, () => {
    console.log(`Server is running on Port ${PORT}!`);
-   schedule.scheduleJob('*/20 * * * *', async function () {
-      await updateRedisExchangeRate(); // 20분 마다 환율 업데이트
+   schedule.scheduleJob('*/30 * * * *', async function () {
+      await updateRedisExchangeRate(); // 30분 마다 환율 업데이트
       console.log('update exchange');
    });
-   schedule.scheduleJob('55 23 * * *', async function () {
-      await updateExchangeRate(); // 매일 23:55 에 당일 환율 db에 저장
-      console.log('update today exchange');
+   schedule.scheduleJob('1 0 * * *', async function () {
+      await updateExchangeRate(); // 매일 00:01 에 그 전날 환율 db에 저장
+      console.log('update today close exchange');
    });
    schedule.scheduleJob('0 */8 * * *', async function () {
       await updateRedisApiToken(); // 8시간 마다 open api token 재발급

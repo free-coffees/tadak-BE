@@ -15,7 +15,7 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          currency: {
-            type: DataTypes.ENUM('KRW', 'USD'), // 입금, 출금
+            type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
          amount: {

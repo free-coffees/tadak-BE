@@ -27,9 +27,9 @@ async function reissueAcessTokenController(req: Request, res: Response) {
    } catch (error: any) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
-            return res.status(401).json({ message: 'Refresh Token 이 만료되었습니다.' });
+            return res.status(401).json({ message: 'Refresh Token is expired.' });
          } else {
-            return res.status(401).json({ message: 'Refresh Token 이 유효하지 않습니다.' });
+            return res.status(401).json({ message: 'Refresh Token is not valid' });
          }
       } else {
          if (error instanceof ApiError) {
