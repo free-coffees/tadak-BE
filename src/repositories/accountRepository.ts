@@ -9,4 +9,9 @@ async function createAccount(accountName: string, userId: number) {
    return data;
 }
 
-module.exports = { createAccount };
+async function readAccountById(accountId: number) {
+   const data = await account.findOne({ where: { id: accountId }, raw: true });
+   return data;
+}
+
+module.exports = { createAccount, readAccountById };

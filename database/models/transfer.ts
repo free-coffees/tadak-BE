@@ -23,7 +23,11 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          amount: {
-            type: DataTypes.DECIMAL(18, 0),
+            type: DataTypes.DECIMAL(16, 2),
+            allowNull: false,
+         },
+         currency: {
+            type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
       },

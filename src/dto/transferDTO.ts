@@ -3,4 +3,5 @@ export interface createTransferDTO {
    transferDate: Date;
    transferType: 'deposit' | 'withdrawl';
    amount: number;
+   currency: 'krw' | 'usd';
 }

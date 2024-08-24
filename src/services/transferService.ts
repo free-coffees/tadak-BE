@@ -6,7 +6,7 @@ const db = require('../../database/index');
 const transferRepo = require('../repositories/transferRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 
-async function createTransferService(userId: number, createTransferDTO: createTransferDTO) {
+async function createTransferService(createTransferDTO: createTransferDTO) {
    const transaction: Transaction = await db.sequelize.transaction();
    try {
       await transferRepo.createTransfer(createTransferDTO, transaction);

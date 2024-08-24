@@ -19,9 +19,9 @@ async function createBalance(accountId: number, currency: string, transaction: T
 }
 
 async function updateBalanceByTransfer(createTransferDTO: createTransferDTO, transaction: Transaction) {
-   const { accountId, transferType, amount } = createTransferDTO;
+   const { accountId, transferType, amount, currency } = createTransferDTO;
    const data = await balance.findOne(
-      { where: { account_id: accountId, currency: 'krw' }, raw: true },
+      { where: { account_id: accountId, currency: currency }, raw: true },
       { transaction },
    );
    let sum = Number(data.amount);
@@ -38,7 +38,7 @@ async function updateBalanceByTransfer(createTransferDTO: createTransferDTO, tra
       {
          where: {
             account_id: accountId,
-            currency: 'krw',
+            currency: currency,
          },
       },
       {

@@ -5,7 +5,7 @@ const db = require('../../database/index');
 const transfer = db.transfer;
 
 async function createTransfer(createTransferDTO: createTransferDTO, transaction: Transaction) {
-   const { accountId, transferDate, transferType, amount } = createTransferDTO;
+   const { accountId, transferDate, transferType, amount, currency } = createTransferDTO;
 
    const data = await transfer.create(
       {
@@ -13,6 +13,7 @@ async function createTransfer(createTransferDTO: createTransferDTO, transaction:
          transfer_date: transferDate,
          transfer_type: transferType,
          amount: amount,
+         currency: currency,
       },
       {
          transaction,

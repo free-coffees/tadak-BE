@@ -26,7 +26,7 @@ async function updateSearchFrequencyController(req: Request, res: Response) {
       if (!stockId) {
          const error = new ApiError(400, 'stockId is required');
          throw error;
-      }
+      } //validation 부분으로 이동 예정
       await searchService.updateSearchFrequencyService(stockId);
       return res.status(StatusCodes.OK).send({ message: 'Search Frequency is updated' });
    } catch (error) {

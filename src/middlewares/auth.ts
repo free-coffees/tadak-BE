@@ -29,7 +29,7 @@ async function auth(req: Request, res: Response, next: NextFunction) {
    } catch (error) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
-            return res.status(419).json({ message: 'Access Token is expired.' });
+            return res.status(401).json({ message: 'Access Token is expired.' });
          } else {
             return res.status(401).json({ message: 'Access Token is not valid' });
          }
