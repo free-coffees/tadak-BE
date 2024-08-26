@@ -1,29 +1,42 @@
 import { NextFunction, Request, Response } from 'express';
 const { body, validationResult } = require('express-validator');
 
-const createTransferValidator = [
+const createTransactionValidator = [
    body('accountId')
       .isInt({ gt: 0 })
       .withMessage('accountId 는 양수입니다.')
       .notEmpty()
       .withMessage('accountId 값 입력은 필수입니다.'),
 
-   body('transferDate')
+   body('stockId')
+      .isInt({ gt: 0 })
+      .withMessage('stockId 는 양수입니다.')
+      .notEmpty()
+      .withMessage('stockId 값 입력은 필수입니다.'),
+
+   body('transactionDate')
       .isISO8601()
       .withMessage('올바른 날짜를 입력해주세요.')
       .notEmpty()
       .withMessage('날짜 값 입력은 필수입니다.'),
 
-   body('transferType')
-      .isIn(['deposit', 'withdrawal'])
-      .withMessage('입금 출금 중에 입력해주세요.')
+   body('transactionType')
+      .isIn(['buy', 'sell'])
+      .withMessage('매수 매도 중에 입력해주세요.')
       .notEmpty()
-      .withMessage('입출금 값 입력은 필수입니다.'),
-   body('amount')
+      .withMessage('거래유형 값 입력은 필수입니다.'),
+
+   body('quantity')
       .isFloat({ gt: 0 })
-      .withMessage('금액은 양수입니다.')
+      .withMessage('수량은 양수입니다.')
       .notEmpty()
-      .withMessage('금액 값 입력은 필수입니다.'),
+      .withMessage('수량 값 입력은 필수입니다.'),
+
+   body('price')
+      .isFloat({ gt: 0 })
+      .withMessage('가격은 양수입니다.')
+      .notEmpty()
+      .withMessage('가격 값 입력은 필수입니다.'),
 
    body('currency')
       .isIn(['krw', 'usd'])
@@ -41,4 +54,4 @@ const createTransferValidator = [
    },
 ];
 
-module.exports = createTransferValidator;
+module.exports = createTransactionValidator;

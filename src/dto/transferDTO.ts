@@ -1,7 +1,7 @@
 export interface createTransferDTO {
    accountId: number;
    transferDate: Date;
-   transferType: 'deposit' | 'withdrawl';
+   transferType: 'deposit' | 'withdrawal';
    amount: number;
    currency: 'krw' | 'usd';
 }

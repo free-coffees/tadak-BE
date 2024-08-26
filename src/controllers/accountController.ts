@@ -11,9 +11,9 @@ async function createAccountController(req: Request, res: Response) {
       if (!accountName || accountName == '') {
          const error = new ApiError(400, 'Invalid Request');
          throw error;
-      }
+      } // validation 부분으로 이동
       await accountService.createAccountService(accountName, userId);
-      return res.status(StatusCodes.OK).send({ message: 'Account is successfully created.' });
+      return res.status(StatusCodes.OK).send({ message: '계좌가 성공적으로 생성되었습니다.' });
    } catch (error) {
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });

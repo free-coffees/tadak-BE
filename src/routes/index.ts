@@ -5,6 +5,7 @@ const socialLoginRouter = require('./socialLoginRouter');
 const accountRouter = require('./accountRouter');
 const searchRouter = require('./searchRouter');
 const transferRouter = require('./transferRouter');
+const transactionRouter = require('./transactionRouter');
 const router = express.Router();
 
 /**
@@ -27,5 +28,6 @@ router.use(socialLoginRouter);
 router.use(accountRouter);
 router.use(searchRouter);
 router.use(transferRouter);
+router.use(transactionRouter);
 
 module.exports = router;

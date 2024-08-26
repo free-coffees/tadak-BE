@@ -18,33 +18,37 @@ async function createBalance(accountId: number, currency: string, transaction: T
    return data;
 }
 
-async function updateBalanceByTransfer(createTransferDTO: createTransferDTO, transaction: Transaction) {
-   const { accountId, transferType, amount, currency } = createTransferDTO;
-   const data = await balance.findOne(
-      { where: { account_id: accountId, currency: currency }, raw: true },
-      { transaction },
-   );
-   let sum = Number(data.amount);
+async function readBalanceByAccountIdAndCurrency(accountId: number, currency: string) {
+   const data = await balance.findOne({
+      where: {
+         account_id: accountId,
+         currency: currency,
+      },
+      raw: true,
+   });
+   return data;
+}
 
-   if (transferType == 'deposit') {
-      sum += amount;
-   } else {
-      sum -= amount;
-   }
-   await balance.update(
+async function updateBalance(
+   accountId: number,
+   currency: string,
+   amount: number,
+   option?: { transaction?: Transaction },
+) {
+   const { transaction } = option || {};
+   const data = await balance.update(
       {
-         amount: sum,
+         amount: amount,
       },
       {
          where: {
             account_id: accountId,
             currency: currency,
          },
-      },
-      {
          transaction,
       },
    );
+   return data;
 }
 
-module.exports = { createBalance, updateBalanceByTransfer };
+module.exports = { createBalance, updateBalance, readBalanceByAccountIdAndCurrency };
