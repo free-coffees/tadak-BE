@@ -11,7 +11,6 @@ async function updateRedisExchangeRate() {
       let rate = exchangeRate.slice(0, 9);
       rate = rate.replace(/,/g, '');
       let rateNum = parseFloat(rate);
-      console.log(rate);
       await redisClient.set('exchange_rate', rateNum);
    } catch (error) {
       console.log(error);

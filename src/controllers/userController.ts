@@ -8,7 +8,7 @@ async function loginController(req: Request, res: Response) {
    try {
       const deviceId = req.headers['device-id'];
       const data = await userService.loginService(deviceId);
-      return res.status(StatusCodes.OK).send({ data });
+      return res.status(StatusCodes.OK).send(data);
    } catch (error) {
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
@@ -23,7 +23,7 @@ async function reissueAcessTokenController(req: Request, res: Response) {
    try {
       const refreshToken = req.headers['refresh-token']; // 400, refresh 필요
       const data = await userService.reissueAcessTokenService(refreshToken);
-      return res.status(StatusCodes.OK).send({ data });
+      return res.status(StatusCodes.OK).send(data);
    } catch (error: any) {
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {

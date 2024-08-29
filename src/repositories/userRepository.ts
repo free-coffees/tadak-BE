@@ -6,9 +6,10 @@ const Op = sequelize.Op;
 
 const user = db.user;
 
-async function createUser(deviceId: string) {
+async function createUser(deviceId: string, nickname: string) {
    const data = await user.create({
       device_id: deviceId,
+      nickname: nickname,
    });
    return data;
 }

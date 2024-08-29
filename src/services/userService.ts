@@ -3,13 +3,21 @@ import ApiError from '../errorCuston/apiError';
 const userRepo = require('../repositories/userRepository');
 const secret_key = process.env.SECRET_KEY as string;
 
-async function loginService(deviceId: string): Promise<{ accessToken: string; refreshToken: string }> {
+async function loginService(
+   deviceId: string,
+): Promise<{ access_token: string; refresh_token: string; nickname: string }> {
    let isExistedUser = await userRepo.readUserByDeviceId(deviceId);
+   const nickname1 = ['미래의', '조만간', '언젠간'];
+   const nickname2 = ['백만장자', '경제적자유인', '주식고수'];
+   let nickname = '';
 
    if (!isExistedUser) {
       // 최초 진입 유저인 경우 계정 생성
-      isExistedUser = await userRepo.createUser(deviceId);
+      nickname = nickname1[Math.floor(Math.random() * 3)] + nickname2[Math.floor(Math.random() * 3)];
+      isExistedUser = await userRepo.createUser(deviceId, nickname);
    }
+
+   nickname = isExistedUser.nickname;
 
    const payload = {
       id: isExistedUser.id,
@@ -27,7 +35,7 @@ async function loginService(deviceId: string): Promise<{ accessToken: string; re
 
    await userRepo.updateRefreshToken(isExistedUser.id, refreshToken);
 
-   return { accessToken, refreshToken };
+   return { access_token: accessToken, refresh_token: refreshToken, nickname };
 }
 
 async function reissueAcessTokenService(refreshToken: string) {
@@ -51,7 +59,7 @@ async function reissueAcessTokenService(refreshToken: string) {
          throw error;
       }
    }
-   return { accessToken };
+   return { access_token: accessToken };
 }
 
 module.exports = { loginService, reissueAcessTokenService };

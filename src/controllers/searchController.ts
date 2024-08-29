@@ -9,7 +9,7 @@ async function getSearchListController(req: Request, res: Response) {
       const searchWord: string = String(req.query.word);
       const page: number = Number(req.query.page);
       const data = await searchService.getSearchListService(searchWord, page);
-      return res.status(StatusCodes.OK).send({ data });
+      return res.status(StatusCodes.OK).send(data);
    } catch (error) {
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });

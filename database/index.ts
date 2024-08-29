@@ -4,6 +4,7 @@ const initModels = require('./models/init-models');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
    host: dbConfig.HOST,
+   port: dbConfig.PORT,
    dialect: dbConfig.dialect,
    logging: false,
 

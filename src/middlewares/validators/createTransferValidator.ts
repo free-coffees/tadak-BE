@@ -16,9 +16,9 @@ const createTransferValidator = [
 
    body('transferType')
       .isIn(['deposit', 'withdrawal'])
-      .withMessage('입금 출금 중에 입력해주세요.')
+      .withMessage('거래 유형은 deposit 또는 withdrawal 이어야 합니다.')
       .notEmpty()
-      .withMessage('입출금 값 입력은 필수입니다.'),
+      .withMessage('거래 유형은 deposit 또는 withdrawal 이어야 합니다.'),
    body('amount')
       .isFloat({ gt: 0 })
       .withMessage('금액은 양수입니다.')
@@ -27,9 +27,9 @@ const createTransferValidator = [
 
    body('currency')
       .isIn(['krw', 'usd'])
-      .withMessage('원화 달러 중에 입력해주세요.')
+      .withMessage('통화는 krw 또는 usd 이어야 합니다.')
       .notEmpty()
-      .withMessage('통화 값 입력은 필수입니다.'),
+      .withMessage('통화는 krw 또는 usd 이어야 합니다.'),
 
    (req: Request, res: Response, next: NextFunction) => {
       const errors = validationResult(req);
