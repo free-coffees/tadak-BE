@@ -19,11 +19,11 @@ module.exports = function (sequelize: Sequelize) {
             allowNull: false,
          },
          from_currency: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
          to_currency: {
-            type: DataTypes.STRING,
+            type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
          exchange_rate: {

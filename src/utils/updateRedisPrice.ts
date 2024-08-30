@@ -11,6 +11,7 @@ async function updateRedisPrice() {
             url: 'https://openapi.koreainvestment.com:9443/uapi/domestic-stock/v1/quotations/inquire-price',
             headers: {
                'Content-Type': 'application/json; charset=UTF-8',
+               Connection: 'close',
                authorization: 'Bearer ' + access_token,
                appkey: process.env.STOCK_KEY,
                appsecret: process.env.STOCK_SECRET_KEY,
