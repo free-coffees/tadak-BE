@@ -62,4 +62,8 @@ async function reissueAcessTokenService(refreshToken: string) {
    return { access_token: accessToken };
 }
 
-module.exports = { loginService, reissueAcessTokenService };
+async function updateUserNicknameService(userId: number, nickname: string) {
+   await userRepo.updateUserNickname(userId, nickname);
+}
+
+module.exports = { loginService, reissueAcessTokenService, updateUserNicknameService };

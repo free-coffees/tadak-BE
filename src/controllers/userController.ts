@@ -42,4 +42,20 @@ async function reissueAcessTokenController(req: Request, res: Response) {
    }
 }
 
-module.exports = { loginController, reissueAcessTokenController };
+async function updateUserNicknameController(req: Request, res: Response) {
+   try {
+      const userId = req.userId;
+      const nickname = req.body.nickname;
+      await userService.updateUserNicknameService(userId, nickname);
+      return res.status(StatusCodes.OK).send({ message: '닉네임이 수정 완료 되었습니다.' });
+   } catch (error) {
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         console.log(error);
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
+   }
+}
+
+module.exports = { loginController, reissueAcessTokenController, updateUserNicknameController };

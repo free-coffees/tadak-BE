@@ -26,7 +26,7 @@ db.sequelize
 const redisClient = require('./database/redis');
 redisClient.connect().then();
 
-app.use(morgan('dev'));
+app.use(morgan('combined'));
 
 // parse requests of content-type - application/json
 app.use(express.json());

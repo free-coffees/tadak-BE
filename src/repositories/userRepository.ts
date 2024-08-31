@@ -56,6 +56,19 @@ async function updateRefreshToken(userId: number, refreshToken: string) {
    );
 }
 
+async function updateUserNickname(userId: number, nickname: string) {
+   await user.update(
+      {
+         nickname: nickname,
+      },
+      {
+         where: {
+            id: userId,
+         },
+      },
+   );
+}
+
 async function linkingKakao(deviceId: string, kakaoId: string) {
    const data = user.update(
       {
@@ -72,4 +85,12 @@ async function linkingKakao(deviceId: string, kakaoId: string) {
    return data;
 }
 
-module.exports = { createUser, readUserByDeviceId, readUserById, readUserByKakaoId, updateRefreshToken, linkingKakao };
+module.exports = {
+   createUser,
+   readUserByDeviceId,
+   readUserById,
+   readUserByKakaoId,
+   updateRefreshToken,
+   linkingKakao,
+   updateUserNickname,
+};
