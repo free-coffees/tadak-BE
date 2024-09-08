@@ -13,7 +13,7 @@ async function createTransactionService(createTransactionDTO: createTransactionD
    const balance = await balanceRepo.readBalanceByAccountIdAndCurrency(accountId, currency);
    let holding = await holdingRepo.readHoldingByAccountIdAndStockId(accountId, stockId);
    if (holding && holding.status == 'inactive') {
-      throw new ApiError(400, '보유한 주식이 비활성된 상태입니다.');
+      throw new ApiError(400, '보유한 주식이 비활성된 상태입니다. 거래내역을 수정해주세요.');
    }
    try {
       let updatedQuantity;
@@ -45,9 +45,16 @@ async function createTransactionService(createTransactionDTO: createTransactionD
             transaction,
          });
       } else {
-         await holdingRepo.updateHolding(accountId, stockId, updatedQuantity, updatedAvgPrice, { transaction });
+         await holdingRepo.updateHolding(accountId, stockId, updatedQuantity, updatedAvgPrice, undefined, {
+            transaction,
+         });
       }
       await transaction.commit();
+      if (updatedQuantity < 0) {
+         return 'inactive';
+      } else {
+         return 'active';
+      }
    } catch (error) {
       await transaction.rollback();
       console.log('Transaction failed:', error);
