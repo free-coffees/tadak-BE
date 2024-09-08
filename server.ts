@@ -52,7 +52,7 @@ server.listen(PORT, () => {
       await updateExchangeRate(); // 매일 00:01 에 그 전날 환율 db에 저장
       console.log('update today close exchange');
    });
-   schedule.scheduleJob('0 */8 * * *', async function () {
+   schedule.scheduleJob('0 */11 * * *', async function () {
       await updateRedisApiToken(); // 8시간 마다 open api token 재발급
       console.log('get api token');
    });

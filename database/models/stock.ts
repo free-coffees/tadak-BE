@@ -27,6 +27,14 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.STRING,
             allowNull: false,
          },
+         standard_code: {
+            type: DataTypes.STRING,
+            allowNull: true,
+         },
+         logo_image_url: {
+            type: DataTypes.STRING,
+            allowNull: true,
+         },
       },
       {
          timestamps: true,
