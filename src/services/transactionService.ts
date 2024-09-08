@@ -9,10 +9,13 @@ const holdingRepo = require('../repositories/holdingRepository');
 
 async function createTransactionService(createTransactionDTO: createTransactionDTO) {
    const transaction = await db.sequelize.transaction();
+   const { accountId, stockId, transactionDate, transactionType, quantity, price, currency } = createTransactionDTO;
+   const balance = await balanceRepo.readBalanceByAccountIdAndCurrency(accountId, currency);
+   let holding = await holdingRepo.readHoldingByAccountIdAndStockId(accountId, stockId);
+   if (holding && holding.status == 'inactive') {
+      throw new ApiError(400, '보유한 주식이 비활성된 상태입니다.');
+   }
    try {
-      const { accountId, stockId, transactionDate, transactionType, quantity, price, currency } = createTransactionDTO;
-      const balance = await balanceRepo.readBalanceByAccountIdAndCurrency(accountId, currency);
-      let holding = await holdingRepo.readHoldingByAccountIdAndStockId(accountId, stockId);
       let updatedQuantity;
       let updatedAvgPrice;
       let updatedBalance;
@@ -37,6 +40,10 @@ async function createTransactionService(createTransactionDTO: createTransactionD
       await balanceRepo.updateBalance(accountId, currency, updatedBalance, { transaction });
       if (updatedQuantity == 0) {
          await holdingRepo.deleteHolding(accountId, stockId, { transaction });
+      } else if (updatedQuantity < 0) {
+         await holdingRepo.updateHolding(accountId, stockId, updatedQuantity, updatedAvgPrice, 'inactive', {
+            transaction,
+         });
       } else {
          await holdingRepo.updateHolding(accountId, stockId, updatedQuantity, updatedAvgPrice, { transaction });
       }

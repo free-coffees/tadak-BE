@@ -27,19 +27,24 @@ async function updateHolding(
    stockId: number,
    quantity: number,
    avgPrice: number,
+   status?: string,
    option?: { transaction?: Transaction },
 ) {
    const { transaction } = option || {};
-   const data = await holding.update(
-      { quantity: quantity, average_price: avgPrice },
-      {
-         where: {
-            account_id: accountId,
-            stock_id: stockId,
-         },
-         transaction,
+   const updatedData: any = {
+      quantity: quantity,
+      average_price: avgPrice,
+   };
+   if (status !== undefined) {
+      updatedData.status = status;
+   }
+   const data = await holding.update(updatedData, {
+      where: {
+         account_id: accountId,
+         stock_id: stockId,
       },
-   );
+      transaction,
+   });
    return data;
 }
 
