@@ -48,7 +48,7 @@ async function addIndexToDB() {
       console.timeEnd('전체');
       console.log('끝!!');
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 

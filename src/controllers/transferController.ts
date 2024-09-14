@@ -11,10 +11,10 @@ async function createTransferController(req: Request, res: Response) {
       await transferService.createTransferService(createTransferDTO);
       return res.status(StatusCodes.OK).send({ message: '입출금이 정상적으로 처리 되었습니다.' });
    } catch (error) {
+      console.error('Transfer Error:', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

@@ -11,10 +11,10 @@ async function getSearchListController(req: Request, res: Response) {
       const data = await searchService.getSearchListService(searchWord, page);
       return res.status(StatusCodes.OK).send(data);
    } catch (error) {
+      console.error('Get Search List Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }
@@ -30,10 +30,10 @@ async function updateSearchFrequencyController(req: Request, res: Response) {
       await searchService.updateSearchFrequencyService(stockId);
       return res.status(StatusCodes.OK).send({ message: 'Search Frequency is updated' });
    } catch (error) {
+      console.error('Update Search Freq Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

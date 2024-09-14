@@ -18,7 +18,7 @@ async function updateIndexKospi() {
          price: priceNum,
       });
    } catch (error) {
-      console.log(error);
+      console.error('Update Index Kospi Error : ', error);
    }
 }
 

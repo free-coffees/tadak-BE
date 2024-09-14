@@ -17,7 +17,7 @@ async function updateRedisApiToken() {
       });
       await redisClient.set('access_token', data.data.access_token);
    } catch (error: any) {
-      console.log(error);
+      console.error('Update Api Token To Redis Error : ', error);
    }
 }
 

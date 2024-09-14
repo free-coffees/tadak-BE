@@ -27,6 +27,7 @@ async function auth(req: Request, res: Response, next: NextFunction) {
          throw error;
       }
    } catch (error) {
+      console.error('Auth Error : ', error);
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
             return res.status(401).json({ message: 'Access Token is expired.' });
@@ -36,7 +37,6 @@ async function auth(req: Request, res: Response, next: NextFunction) {
       } else if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

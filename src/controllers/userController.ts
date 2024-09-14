@@ -10,10 +10,10 @@ async function loginController(req: Request, res: Response) {
       const data = await userService.loginService(deviceId);
       return res.status(StatusCodes.OK).send(data);
    } catch (error) {
+      console.error('Login Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }
@@ -25,6 +25,7 @@ async function reissueAcessTokenController(req: Request, res: Response) {
       const data = await userService.reissueAcessTokenService(refreshToken);
       return res.status(StatusCodes.OK).send(data);
    } catch (error: any) {
+      console.error('Reissue AT Error : ', error);
       if (error instanceof JsonWebTokenError) {
          if (error instanceof TokenExpiredError) {
             return res.status(401).json({ message: 'Refresh Token is expired.' });
@@ -35,7 +36,6 @@ async function reissueAcessTokenController(req: Request, res: Response) {
          if (error instanceof ApiError) {
             return res.status(error.statusCode).json({ message: error.message });
          } else {
-            console.log(error);
             return res.status(500).json({ message: 'Internal Server Error' });
          }
       }
@@ -49,10 +49,10 @@ async function updateUserNicknameController(req: Request, res: Response) {
       await userService.updateUserNicknameService(userId, nickname);
       return res.status(StatusCodes.OK).send({ message: '닉네임이 수정 완료 되었습니다.' });
    } catch (error) {
+      console.error('Update User Nickname Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

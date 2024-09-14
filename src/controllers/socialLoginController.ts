@@ -11,10 +11,10 @@ async function kakaoLoginController(req: Request, res: Response) {
          `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${process.env.KAKAO_APP_KEY}&redirect_uri=${process.env.KAKAO_REDIRECT_URI}&state=${deviceId}`,
       );
    } catch (error) {
+      console.error('Kakao Login Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }
@@ -29,10 +29,10 @@ async function kakaoAuthController(req: Request, res: Response) {
          `http://localhost:3000/loginRedirect?access_token=${data.accessToken}&refresh_token=${data.refreshToken}`,
       ); // redirect
    } catch (error) {
+      console.error('Kakao Auth Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

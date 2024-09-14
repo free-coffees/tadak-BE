@@ -19,7 +19,7 @@ async function updateIndexSp500() {
          price: priceNum,
       });
    } catch (error) {
-      console.log(error);
+      console.error('Update Index Sp500 Error : ', error);
    }
 }
 
@@ -38,7 +38,7 @@ async function updateIndexNasdaq() {
          price: priceNum,
       });
    } catch (error) {
-      console.log(error);
+      console.error('Update Index Nasdaq Error : ', error);
    }
 }
 

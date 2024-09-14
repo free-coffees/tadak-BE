@@ -12,7 +12,7 @@ async function updateExchangeRate() {
       let rateNum = parseFloat(rate);
       await exchageRateRepo.createExchangeRate(rateNum);
    } catch (error) {
-      console.log(error);
+      console.error('Update Exchange Rate Error : ', error);
    }
 }
 

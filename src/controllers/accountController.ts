@@ -15,10 +15,10 @@ async function createAccountController(req: Request, res: Response) {
       await accountService.createAccountService(accountName, userId);
       return res.status(StatusCodes.OK).send({ message: '계좌가 성공적으로 생성되었습니다.' });
    } catch (error) {
+      console.error('Account Creation Error :', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

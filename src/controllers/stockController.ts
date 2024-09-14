@@ -22,7 +22,6 @@ async function readKRCurrentPriceController(req: Request, res: Response) {
          if (error instanceof ApiError) {
             return res.status(error.statusCode).json({ message: error.message });
          } else {
-            console.log(error);
             return res.status(500).json({ message: 'Internal Server Error' });
          }
       }
@@ -45,7 +44,6 @@ async function readUSCurrentPriceController(req: Request, res: Response) {
       } else if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

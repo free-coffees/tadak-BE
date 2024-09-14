@@ -21,7 +21,7 @@ async function addStandardCodeToDB() {
          );
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 

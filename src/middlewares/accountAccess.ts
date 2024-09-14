@@ -19,10 +19,10 @@ async function accountAccess(req: Request, res: Response, next: NextFunction) {
       }
       next();
    } catch (error) {
+      console.error('Account Access Error : ', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
-         console.log(error);
          return res.status(500).json({ message: 'Internal Server Error' });
       }
    }

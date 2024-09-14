@@ -47,7 +47,7 @@ async function addNasdaqStockToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 
@@ -89,7 +89,7 @@ async function addNyseStockToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      //console.log(error);
+      console.error(error);
    }
 }
 
@@ -131,7 +131,7 @@ async function addAmexStockToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      //console.log(error);
+      console.error(error);
    }
 }
 
@@ -170,7 +170,7 @@ async function addKrStockToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 

@@ -13,7 +13,7 @@ async function updateRedisExchangeRate() {
       let rateNum = parseFloat(rate);
       await redisClient.set('exchange_rate', rateNum);
    } catch (error) {
-      console.log(error);
+      console.error('Update Redis Exchange Rate Error : ', error);
    }
 }
 

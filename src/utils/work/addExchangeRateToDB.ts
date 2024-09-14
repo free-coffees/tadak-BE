@@ -27,7 +27,7 @@ async function addExchangeRateToDB() {
       }
       console.log('끝!!');
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 
@@ -56,7 +56,7 @@ async function updateExchangeRateAtDB() {
          prev = now;
       }
    } catch (error) {
-      console.log(error);
+      console.error(error);
    }
 }
 
