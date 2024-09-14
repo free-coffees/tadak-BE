@@ -1,5 +1,4 @@
 import express from 'express';
-
 require('dotenv').config();
 const routes = require('./src/routes/index');
 const app = express();
@@ -13,8 +12,15 @@ const updateRedisExchangeRate = require('./src/utils/updateRedisExchangeRate');
 const updateExchangeRate = require('./src/utils/updateExchangeRate');
 const { updateIndexSp500, updateIndexNasdaq } = require('./src/utils/updateIndexUS');
 const updateIndexKospi = require('./src/utils/updateIndexKospi');
-
 const { swaggerSpec, swaggerUi } = require('./swaggers/swagger');
+import axios from 'axios';
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, {
+   retries: 3, // 3번 재시도
+   retryDelay: (retryCount: number) => retryCount * 1000, // 1초씩 증가하는 재시도 지연
+   retryCondition: (error: any) => error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT',
+});
 
 db.sequelize
    .sync({ alter: true })
