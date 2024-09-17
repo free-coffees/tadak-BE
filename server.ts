@@ -17,6 +17,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
 axiosRetry(axios, {
+   // axios retry 설정
    retries: 3, // 3번 재시도
    retryDelay: (retryCount: number) => retryCount * 1000, // 1초씩 증가하는 재시도 지연
    retryCondition: (error: any) => error.code === 'ECONNRESET' || error.code === 'ETIMEDOUT',

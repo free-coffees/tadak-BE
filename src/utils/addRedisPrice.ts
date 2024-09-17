@@ -1,16 +1,12 @@
 import axios from 'axios';
 const redisClient = require('../../database/redis');
-const db = require('../../database/index');
 const stockRepo = require('../repositories/stockRepository');
 
-async function readCurrentPriceService(itemCode: string) {
+async function addRedisPrice(itemCode: string) {
    const accessToken = await redisClient.get('access_token');
    const stock = await stockRepo.readStockByCode(itemCode);
    const isExistedPrice = await redisClient.hGet('stock_prices', itemCode);
-   if (isExistedPrice) {
-      return isExistedPrice;
-   } else {
-      // redis에 없으면 현재가 확인해서 return
+   if (!isExistedPrice) {
       if (stock.market == 'NYSE' || stock.market == 'AMEX' || stock.market == 'NASDAQ') {
          let market;
          if (stock.market == 'NYSE') {
@@ -36,7 +32,7 @@ async function readCurrentPriceService(itemCode: string) {
                SYMB: itemCode,
             },
          });
-         return data.data.output.last;
+         await redisClient.hSet('stock_prices', itemCode, data.data.output.last);
       } else {
          const data = await axios({
             method: 'GET',
@@ -53,11 +49,9 @@ async function readCurrentPriceService(itemCode: string) {
                FID_INPUT_ISCD: itemCode,
             },
          });
-         return data.data.output.stck_prpr;
+         await redisClient.hSet('stock_prices', itemCode, data.data.output.stck_prpr);
       }
    }
 }
 
-module.exports = {
-   readCurrentPriceService,
-};
+module.exports = addRedisPrice;

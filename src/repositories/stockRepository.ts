@@ -15,4 +15,24 @@ async function readStockByName(searchWord: string) {
    return data;
 }
 
-module.exports = { readStockByName };
+async function readStockByCode(stockCode: string) {
+   const data = await stock.findOne({
+      where: {
+         stock_code: stockCode,
+      },
+      raw: true,
+   });
+   return data;
+}
+
+async function readStockById(stockId: number) {
+   const data = await stock.findOne({
+      where: {
+         id: stockId,
+      },
+      raw: true,
+   });
+   return data;
+}
+
+module.exports = { readStockByName, readStockByCode, readStockById };
