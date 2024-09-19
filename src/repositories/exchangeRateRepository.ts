@@ -10,27 +10,16 @@ async function createExchangeRate(rate: number) {
    await exchangeRate.create({ rate: rate, date: today });
 }
 
-async function readExchangeRateByDate() {
+async function readRecentExchangeRate() {
    const data = await exchangeRate.findOne({
-      order: [['createdAt', 'DESC']],
+      order: [['date', 'DESC']],
       raw: true,
    });
-   const createdAt = data.createdAt;
-   const now = new Date();
-
-   if (
-      createdAt.getFullYear() == now.getFullYear() &&
-      createdAt.getMonth() == now.getMonth() &&
-      createdAt.getDate() == now.getDate()
-   ) {
-      return data;
-   } else {
-      return;
-   }
+   return data.rate;
 }
 
 async function updateExchangeRate(exchangeRateId: number, rate: number) {
    await exchangeRate.update({ rate: rate }, { where: { id: exchangeRateId } });
 }
 
-module.exports = { createExchangeRate, readExchangeRateByDate, updateExchangeRate };
+module.exports = { createExchangeRate, readRecentExchangeRate, updateExchangeRate };
