@@ -29,6 +29,16 @@ async function readBalanceByAccountIdAndCurrency(accountId: number, currency: st
    return data;
 }
 
+async function readBalanceByAccountId(accountId: number) {
+   const data = await balance.findAll({
+      where: {
+         account_id: accountId,
+      },
+      raw: true,
+   });
+   return data;
+}
+
 async function updateBalance(
    accountId: number,
    currency: string,
@@ -51,4 +61,4 @@ async function updateBalance(
    return data;
 }
 
-module.exports = { createBalance, updateBalance, readBalanceByAccountIdAndCurrency };
+module.exports = { createBalance, readBalanceByAccountIdAndCurrency, readBalanceByAccountId, updateBalance };

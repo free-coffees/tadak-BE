@@ -22,6 +22,11 @@ async function readHoldingByAccountIdAndStockId(accountId: number, stockId: numb
    return data;
 }
 
+async function readHoldingByAccountId(accountId: number) {
+   const data = await holding.findAll({ where: { account_id: accountId }, raw: true });
+   return data;
+}
+
 async function updateHolding(
    accountId: number,
    stockId: number,
@@ -60,4 +65,10 @@ async function deleteHolding(accountId: number, stockId: number, option?: { tran
    return data;
 }
 
-module.exports = { createHolding, readHoldingByAccountIdAndStockId, updateHolding, deleteHolding };
+module.exports = {
+   createHolding,
+   readHoldingByAccountIdAndStockId,
+   readHoldingByAccountId,
+   updateHolding,
+   deleteHolding,
+};

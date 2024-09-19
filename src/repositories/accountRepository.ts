@@ -14,4 +14,9 @@ async function readAccountById(accountId: number) {
    return data;
 }
 
-module.exports = { createAccount, readAccountById };
+async function readAccountByUserId(userId: number) {
+   const data = await account.findAll({ where: { user_id: userId }, raw: true });
+   return data;
+}
+
+module.exports = { createAccount, readAccountById, readAccountByUserId };

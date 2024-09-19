@@ -3,6 +3,7 @@ const redisClient = require('../../database/redis');
 const stockRepo = require('../repositories/stockRepository');
 
 async function addRedisPrice(itemCode: string) {
+   // redis 에 등록해주고 현재가 리턴
    const accessToken = await redisClient.get('access_token');
    const stock = await stockRepo.readStockByCode(itemCode);
    const isExistedPrice = await redisClient.hGet('stock_prices', itemCode);
@@ -33,6 +34,7 @@ async function addRedisPrice(itemCode: string) {
             },
          });
          await redisClient.hSet('stock_prices', itemCode, data.data.output.last);
+         return data.data.output.last;
       } else {
          const data = await axios({
             method: 'GET',
@@ -50,6 +52,7 @@ async function addRedisPrice(itemCode: string) {
             },
          });
          await redisClient.hSet('stock_prices', itemCode, data.data.output.stck_prpr);
+         return data.data.output.stck_prpr;
       }
    }
 }
