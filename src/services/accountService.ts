@@ -37,8 +37,6 @@ async function getAccountListService(userId: number) {
    const accountList = [];
    let myBalance = 0;
 
-   accountList.push({ accountId: null, accountName: '내 자산', totalBalance: myBalance });
-
    for (const account of accounts) {
       const accountId = account.id;
       const balances = await balanceRepo.readBalanceByAccountId(accountId);
@@ -79,6 +77,9 @@ async function getAccountListService(userId: number) {
 
       accountList.push({ accountId: accountId, accountName: account.account_name, totalBalance: totalBalance });
    }
+
+   accountList.unshift({ accountId: null, accountName: '내 자산', totalBalance: myBalance });
+
    return accountList;
 }
 
