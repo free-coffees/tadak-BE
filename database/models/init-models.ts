@@ -13,6 +13,7 @@ var dividendModel = require('./dividend');
 var idxSP500Model = require('./index_sp500');
 var idxKospiModel = require('./index_kospi');
 var idxNasdaqModel = require('./index_nasdaq');
+var securitiesCompanyModel = require('./securities_company');
 
 function initModels(sequelize: Sequelize) {
    const exchangeRate = exchangeRateModel(sequelize);
@@ -29,6 +30,7 @@ function initModels(sequelize: Sequelize) {
    const idxSP500 = idxSP500Model(sequelize);
    const idxKospi = idxKospiModel(sequelize);
    const idxNasdaq = idxNasdaqModel(sequelize);
+   const securitiesCompany = securitiesCompanyModel(sequelize);
 
    user.hasMany(account, { foreignKey: 'user_id' });
    account.belongsTo(user, { foreignKey: 'user_id' });
@@ -52,6 +54,8 @@ function initModels(sequelize: Sequelize) {
    holding.belongsTo(stock, { foreignKey: 'stock_id' });
    stock.hasOne(searchFrequency, { foreignKey: 'stock_id' });
    searchFrequency.belongsTo(stock, { foreignKey: 'stock_id' });
+   securitiesCompany.hasMany(account, { foreignKey: 'securities_company_id' });
+   account.belongsTo(securitiesCompany, { foreignKey: 'securities_company_id' });
 
    return {
       user,
@@ -68,6 +72,7 @@ function initModels(sequelize: Sequelize) {
       transaction,
       holding,
       dividend,
+      securitiesCompany,
    };
 }
 module.exports = initModels;

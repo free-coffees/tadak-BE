@@ -55,6 +55,6 @@ const router = express.Router();
  */
 
 router.post('/account', auth, accountController.createAccountController); // 계좌추가
-//router.patch('/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
+router.put('/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
 router.get('/account/list', auth, accountController.getAccountListController);
 module.exports = router;

@@ -2,7 +2,7 @@ import { Sequelize, DataTypes } from 'sequelize';
 
 module.exports = function (sequelize: Sequelize) {
    return sequelize.define(
-      'account',
+      'securities_company',
       {
          id: {
             autoIncrement: true,
@@ -10,16 +10,12 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
-         user_id: {
-            type: DataTypes.INTEGER,
-            allowNull: false,
-         },
-         account_name: {
+         company_name: {
             type: DataTypes.STRING,
             allowNull: false,
          },
-         securities_company_id: {
-            type: DataTypes.INTEGER,
+         logo_image_url: {
+            type: DataTypes.STRING,
             allowNull: false,
          },
       },

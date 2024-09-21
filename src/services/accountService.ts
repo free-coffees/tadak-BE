@@ -1,5 +1,6 @@
 import { Transaction } from 'sequelize';
 import ApiError from '../errorCuston/apiError';
+import { updateAccountDTO } from '../dto/accountDTO';
 
 const redisClient = require('../../database/redis');
 const db = require('../../database/index');
@@ -7,6 +8,7 @@ const accountRepo = require('../repositories/accountRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 const holdingRepo = require('../repositories/holdingRepository');
 const stockRepo = require('../repositories/stockRepository');
+const securitiesCompanyRepo = require('../repositories/securitiesCompanyRepository');
 const addRedisPrice = require('../utils/addRedisPrice');
 
 async function createAccountService(accountName: string, userId: number) {
@@ -35,21 +37,23 @@ async function getAccountListService(userId: number) {
 
    const redisStockPrices = await redisClient.hGetAll('stock_prices');
    const accountList = [];
-   let myBalance = 0;
+   let myAsset = 0;
 
    for (const account of accounts) {
       const accountId = account.id;
       const balances = await balanceRepo.readBalanceByAccountId(accountId);
       const holdings = await holdingRepo.readHoldingByAccountId(accountId);
+      const securitiesCompany = await securitiesCompanyRepo.readSecuritiesCompanyById(account.securities_company_id);
+      const logoUrl = securitiesCompany.logo_image_url;
 
-      let totalBalance = 0;
+      let totalAsset = 0;
 
       balances.forEach((balance: any) => {
          const amount = parseFloat(balance.amount);
          if (balance.currency == 'usd') {
-            totalBalance += amount * exchangeRate;
+            totalAsset += amount * exchangeRate;
          } else {
-            totalBalance += amount;
+            totalAsset += amount;
          }
       });
 
@@ -65,22 +69,41 @@ async function getAccountListService(userId: number) {
          const quantity = parseFloat(holding.quantity);
 
          if (stock.market == 'NYSE' || stock.market == 'NASDAQ' || stock.market == 'AMEX') {
-            totalBalance += quantity * stockPrice * exchangeRate;
+            totalAsset += quantity * stockPrice * exchangeRate;
          } else {
-            totalBalance += quantity * stockPrice;
+            totalAsset += quantity * stockPrice;
          }
       }
 
-      totalBalance = Math.trunc(totalBalance);
+      totalAsset = Math.trunc(totalAsset);
 
-      myBalance += totalBalance;
+      myAsset += totalAsset;
 
-      accountList.push({ accountId: accountId, accountName: account.account_name, totalBalance: totalBalance });
+      accountList.push({
+         accountId: accountId,
+         accountName: account.account_name,
+         totalAsset: totalAsset,
+         logoUrl: logoUrl,
+      });
    }
 
-   accountList.unshift({ accountId: null, accountName: '내 자산', totalBalance: myBalance });
+   accountList.unshift({ accountId: null, accountName: '내 자산', totalAsset: myAsset, logoUrl: null });
 
    return accountList;
 }
 
-module.exports = { createAccountService, getAccountListService };
+async function updateAccountService(accountId: number, accountName?: string, securitiesCompanyId?: number) {
+   const updateAccountDTO: updateAccountDTO = {};
+
+   if (accountName) {
+      updateAccountDTO.account_name = accountName;
+   }
+
+   if (securitiesCompanyId) {
+      updateAccountDTO.securities_company_id = securitiesCompanyId;
+   }
+
+   await accountRepo.updateAccount(accountId, updateAccountDTO);
+}
+
+module.exports = { createAccountService, getAccountListService, updateAccountService };

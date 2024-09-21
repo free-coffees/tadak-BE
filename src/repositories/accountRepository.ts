@@ -1,3 +1,5 @@
+import { updateAccountDTO } from '../dto/accountDTO';
+
 const db = require('../../database/index');
 const account = db.account;
 
@@ -19,4 +21,8 @@ async function readAccountByUserId(userId: number) {
    return data;
 }
 
-module.exports = { createAccount, readAccountById, readAccountByUserId };
+async function updateAccount(accountId: number, updateAccountDTO: updateAccountDTO) {
+   const data = await account.update(updateAccountDTO, { where: { id: accountId } });
+   return data;
+}
+module.exports = { createAccount, readAccountById, readAccountByUserId, updateAccount };
