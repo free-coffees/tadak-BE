@@ -32,6 +32,8 @@ module.exports = function (sequelize: Sequelize) {
          },
       },
       {
+         paranoid: true,
+         deletedAt: 'deletedAt',
          timestamps: true,
          freezeTableName: true,
          charset: 'utf8mb4',
