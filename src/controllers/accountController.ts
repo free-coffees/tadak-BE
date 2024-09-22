@@ -7,12 +7,12 @@ const accountService = require('../services/accountService');
 async function createAccountController(req: Request, res: Response) {
    try {
       const userId = req.userId;
-      const { accountName } = req.body;
+      const { accountName, securitiesCompanyId } = req.body;
       if (!accountName || accountName == '') {
          const error = new ApiError(400, 'Invalid Request');
          throw error;
       } // validation 부분으로 이동
-      await accountService.createAccountService(accountName, userId);
+      await accountService.createAccountService(userId, accountName, securitiesCompanyId);
       return res.status(StatusCodes.OK).send({ message: '새로운 계좌가 등록됐어요.' });
    } catch (error) {
       console.error('Account Creation Error :', error);
@@ -54,4 +54,24 @@ async function updateAccountController(req: Request, res: Response) {
    }
 }
 
-module.exports = { createAccountController, getAccountListController, updateAccountController };
+async function deleteAccountController(req: Request, res: Response) {
+   try {
+      const accountId = req.body.accountId;
+      await accountService.deleteAccountService(accountId);
+      return res.status(StatusCodes.OK).send({ message: '변경된 내용이 저장됐어요.' });
+   } catch (error) {
+      console.error('Account Delete Error :', error);
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
+   }
+}
+
+module.exports = {
+   createAccountController,
+   getAccountListController,
+   updateAccountController,
+   deleteAccountController,
+};

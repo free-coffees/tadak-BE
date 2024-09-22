@@ -1,13 +1,27 @@
 import { updateAccountDTO } from '../dto/accountDTO';
+import ApiError from '../errorCuston/apiError';
+import { Transaction } from 'sequelize';
 
 const db = require('../../database/index');
 const account = db.account;
 
-async function createAccount(accountName: string, userId: number) {
-   const data = await account.create({
-      account_name: accountName,
-      user_id: userId,
-   });
+async function createAccount(
+   userId: number,
+   accountName: string,
+   securitiesCompanyId: number,
+   option?: { transaction?: Transaction },
+) {
+   const { transaction } = option || {};
+   const data = await account.create(
+      {
+         user_id: userId,
+         account_name: accountName,
+         securities_company_id: securitiesCompanyId,
+      },
+      {
+         transaction,
+      },
+   );
    return data;
 }
 
@@ -25,4 +39,10 @@ async function updateAccount(accountId: number, updateAccountDTO: updateAccountD
    const data = await account.update(updateAccountDTO, { where: { id: accountId } });
    return data;
 }
-module.exports = { createAccount, readAccountById, readAccountByUserId, updateAccount };
+
+async function deleteAccount(accountId: number, option?: { transaction?: Transaction }) {
+   const { transaction } = option || {};
+   await account.destroy({ where: { id: accountId }, transaction });
+}
+
+module.exports = { createAccount, readAccountById, readAccountByUserId, updateAccount, deleteAccount };

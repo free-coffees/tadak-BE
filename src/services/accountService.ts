@@ -11,17 +11,17 @@ const stockRepo = require('../repositories/stockRepository');
 const securitiesCompanyRepo = require('../repositories/securitiesCompanyRepository');
 const addRedisPrice = require('../utils/addRedisPrice');
 
-async function createAccountService(accountName: string, userId: number) {
+async function createAccountService(userId: number, accountName: string, securitiesCompanyId: number) {
    const transaction: Transaction = await db.sequelize.transaction();
    try {
-      const account = await accountRepo.createAccount(accountName, userId, transaction);
+      const account = await accountRepo.createAccount(userId, accountName, securitiesCompanyId, transaction);
       await balanceRepo.createBalance(account.id, 'KRW', transaction);
       await balanceRepo.createBalance(account.id, 'USD', transaction);
       await transaction.commit();
       return account;
    } catch (error) {
       await transaction.rollback();
-      throw error;
+      throw new ApiError(500, '트랜잭션 처리 중 오류가 발생했습니다.');
    }
 }
 
@@ -106,4 +106,15 @@ async function updateAccountService(accountId: number, accountName?: string, sec
    await accountRepo.updateAccount(accountId, updateAccountDTO);
 }
 
-module.exports = { createAccountService, getAccountListService, updateAccountService };
+async function deleteAccountService(accountId: number) {
+   const transaction = await db.sequelize.transaction();
+   try {
+      await accountRepo.deleteAccount(accountId, transaction);
+      await transaction.commit();
+   } catch (error) {
+      await transaction.rollback();
+      throw new ApiError(500, '트랜잭션 처리 중 오류가 발생했습니다.');
+   }
+}
+
+module.exports = { createAccountService, getAccountListService, updateAccountService, deleteAccountService };

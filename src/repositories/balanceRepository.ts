@@ -4,7 +4,8 @@ import { createTransferDTO } from '../dto/transferDTO';
 const db = require('../../database/index');
 const balance = db.balance;
 
-async function createBalance(accountId: number, currency: string, transaction: Transaction) {
+async function createBalance(accountId: number, currency: string, option?: { transaction?: Transaction }) {
+   const { transaction } = option || {};
    const data = await balance.create(
       {
          account_id: accountId,

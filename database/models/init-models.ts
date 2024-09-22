@@ -1,4 +1,5 @@
 import { Sequelize } from 'sequelize';
+import ApiError from '../../src/errorCuston/apiError';
 var exchangeRateModel = require('./exchage_rate');
 var stockModel = require('./stock');
 var searchFrequencyModel = require('./search_frequency');
@@ -56,6 +57,11 @@ function initModels(sequelize: Sequelize) {
    searchFrequency.belongsTo(stock, { foreignKey: 'stock_id' });
    securitiesCompany.hasMany(account, { foreignKey: 'securities_company_id' });
    account.belongsTo(securitiesCompany, { foreignKey: 'securities_company_id' });
+
+   account.addHook('afterBulkDestroy', async (options: any) => {
+      const transaction = options.transaction;
+      await balance.destroy({ where: { account_id: options.where.id }, transaction });
+   });
 
    return {
       user,
