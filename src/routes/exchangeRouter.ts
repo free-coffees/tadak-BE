@@ -6,6 +6,6 @@ const accountAccess = require('../middlewares/accountAccess');
 
 const router = express.Router();
 
-router.post('/exchange', auth, createExchangeValidator, accountAccess, exchangeController.createExchangeController); // 환전
+router.post('/api/exchange', auth, createExchangeValidator, accountAccess, exchangeController.createExchangeController); // 환전
 
 module.exports = router;

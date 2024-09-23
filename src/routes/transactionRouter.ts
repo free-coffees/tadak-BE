@@ -7,7 +7,7 @@ const accountAccess = require('../middlewares/accountAccess');
 const router = express.Router();
 
 router.post(
-   '/transaction',
+   '/api/transaction',
    auth,
    createTransactionValidator,
    accountAccess,

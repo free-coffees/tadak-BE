@@ -78,7 +78,7 @@ const router = express.Router();
  *                   example: Refresh Token 이 만료되었습니다.
  *
  */
-router.post('/user/login', userController.loginController); // 로그인요청 => at rt 발급
-router.post('/user/refresh', userController.reissueAcessTokenController); // at 재발급
-router.patch('/user/nickname', auth, userController.updateUserNicknameController); // 닉네임 수정
+router.post('/api/user/login', userController.loginController); // 로그인요청 => at rt 발급
+router.post('/api/user/refresh', userController.reissueAcessTokenController); // at 재발급
+router.patch('/api/user/nickname', auth, userController.updateUserNicknameController); // 닉네임 수정
 module.exports = router;

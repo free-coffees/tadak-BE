@@ -6,6 +6,6 @@ const accountAccess = require('../middlewares/accountAccess');
 
 const router = express.Router();
 
-router.post('/transfer', auth, createTransferValidator, accountAccess, transferController.createTransferController); // 계좌 입출금
+router.post('/api/transfer', auth, createTransferValidator, accountAccess, transferController.createTransferController); // 계좌 입출금
 
 module.exports = router;
