@@ -60,7 +60,12 @@ function initModels(sequelize: Sequelize) {
 
    account.addHook('afterBulkDestroy', async (options: any) => {
       const transaction = options.transaction;
+      await holding.destroy({ where: { account_id: options.where.id }, transaction });
       await balance.destroy({ where: { account_id: options.where.id }, transaction });
+      await dividend.destroy({ where: { account_id: options.where.id }, transaction });
+      await transaction.destroy({ where: { account_id: options.where.id }, transaction });
+      await exchange.destroy({ where: { account_id: options.where.id }, transaction });
+      await transfer.destroy({ where: { account_id: options.where.id }, transaction });
    });
 
    return {
