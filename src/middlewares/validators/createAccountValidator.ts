@@ -4,9 +4,9 @@ const { body, validationResult } = require('express-validator');
 const createAccountValidator = [
    body('accountName')
       .isString()
-      .withMessage('accountId 는 양수입니다.')
+      .withMessage('accountName 는 양수입니다.')
       .notEmpty()
-      .withMessage('accountId 값 입력은 필수입니다.'),
+      .withMessage('accountName 값 입력은 필수입니다.'),
 
    body('securitiesCompnayId')
       .isInt({ gt: 0 })
