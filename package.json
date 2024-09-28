@@ -14,6 +14,7 @@
       "typescript": "^5.5.2"
    },
    "scripts": {
+      "gendocs": "node ./swaggers/swagger.ts",
       "build": "tsc",
       "start": "node dist/server.js",
       "dev": "nodemon --watch \"*.ts\" --exec \"ts-node\" --files server.ts",
@@ -38,6 +39,7 @@
       "redis": "^4.6.15",
       "sequelize": "^6.37.3",
       "sequelize-cli": "^6.6.2",
+      "swagger-autogen": "^2.23.7",
       "swagger-jsdoc": "^6.2.8",
       "swagger-ui-express": "^5.0.1"
    }

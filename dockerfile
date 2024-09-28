@@ -14,7 +14,6 @@ WORKDIR /usr/src/app
 # Step 3: Container로 package.json과 package-lock.json 복사
 COPY package.json ./
 COPY yarn.lock ./
-
 # Step 4: Container에서 npm install 실행
 RUN yarn install
 

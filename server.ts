@@ -1,4 +1,6 @@
 import express from 'express';
+import swaggerFile from './swaggers/swagger-output.json';
+const swaggerUi = require('swagger-ui-express');
 require('dotenv').config();
 const routes = require('./src/routes/index');
 const app = express();
@@ -13,7 +15,9 @@ const updateRedisExchangeRate = require('./src/utils/updateRedisExchangeRate');
 const updateExchangeRate = require('./src/utils/updateExchangeRate');
 const { updateIndexSp500, updateIndexNasdaq } = require('./src/utils/updateIndexUS');
 const updateIndexKospi = require('./src/utils/updateIndexKospi');
-const { swaggerSpec, swaggerUi } = require('./swaggers/swagger');
+//const swaggerFile = require('./swaggers/swagger-output.json');
+//const { swaggerSpec, swaggerUi } = require('./swaggers/swagger');
+
 import axios from 'axios';
 import axiosRetry from 'axios-retry';
 
@@ -51,8 +55,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(routes);
 
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-
+//app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/swagger-output.json', express.static('./swaggers/swagger-output.json'));
 const server = http.createServer(app);
 
 // set port, listen for requests
