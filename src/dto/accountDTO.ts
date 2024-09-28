@@ -3,7 +3,7 @@ export interface updateAccountDTO {
    securities_company_id?: number;
 }
 
-export interface createAccountInitalDataDTO {
+export interface createAccountInitialDataDTO {
    stockId: number;
    transactionDate: Date;
    quantity: number;

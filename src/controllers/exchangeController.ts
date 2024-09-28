@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 import { createExchangeDTO } from '../dto/exchangeDTO';
 
 const exchangeService = require('../services/exchangeService');

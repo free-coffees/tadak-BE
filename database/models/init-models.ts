@@ -1,6 +1,6 @@
 import { Sequelize } from 'sequelize';
-import ApiError from '../../src/errorCuston/apiError';
-var exchangeRateModel = require('./exchage_rate');
+import ApiError from '../../src/errorCustom/apiError';
+var exchangeRateModel = require('./exchange_rate');
 var stockModel = require('./stock');
 var searchFrequencyModel = require('./search_frequency');
 var userModel = require('./user');

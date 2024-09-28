@@ -1,5 +1,5 @@
 import { createExchangeDTO } from '../dto/exchangeDTO';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
 const exchangeRepo = require('../repositories/exchangeRepository');

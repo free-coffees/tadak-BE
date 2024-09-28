@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 import { createTransferDTO } from '../dto/transferDTO';
 
 const transferService = require('../services/transferService');

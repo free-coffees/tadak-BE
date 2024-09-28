@@ -1,5 +1,5 @@
 import { updateAccountDTO } from '../dto/accountDTO';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 import { Transaction } from 'sequelize';
 
 const db = require('../../database/index');

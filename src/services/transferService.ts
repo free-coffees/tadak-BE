@@ -1,6 +1,6 @@
 import { Transaction } from 'sequelize';
 import { createTransferDTO } from '../dto/transferDTO';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
 const transferRepo = require('../repositories/transferRepository');

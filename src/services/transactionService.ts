@@ -1,5 +1,5 @@
 import { createTransactionDTO } from '../dto/transactionDTO';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
 const transactionRepo = require('../repositories/transactionRepository');

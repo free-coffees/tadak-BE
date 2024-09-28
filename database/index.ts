@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize';
-const dbConfig = require('./db.confing');
+const dbConfig = require('./db.config');
 const initModels = require('./models/init-models');
 
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {

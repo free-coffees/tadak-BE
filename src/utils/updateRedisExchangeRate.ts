@@ -1,6 +1,5 @@
 import axios from 'axios';
 const cheerio = require('cheerio');
-const exchageRateRepo = require('../repositories/exchangeRateRepository');
 const redisClient = require('../../database/redis');
 
 async function updateRedisExchangeRate() {

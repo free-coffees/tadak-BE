@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 const userRepo = require('../repositories/userRepository');
 const secret_key = process.env.SECRET_KEY as string;
 

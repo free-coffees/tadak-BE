@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import ApiError from '../errorCuston/apiError';
+import ApiError from '../errorCustom/apiError';
 
 const accountRepo = require('../repositories/accountRepository');
 
