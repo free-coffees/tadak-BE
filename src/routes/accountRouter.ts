@@ -16,7 +16,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/account:
+ * /account:
  *   post:
  *     summary: create account
  *     security:
@@ -60,12 +60,12 @@ const router = express.Router();
  *                   example: Invalid Request.
  */
 
-router.post('/api/account', auth, createAccountValidator, accountController.createAccountController); // 계좌추가
-router.put('/api/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
-router.delete('/api/account', auth, accountAccess, accountController.deleteAccountController); // 계좌삭제
-router.get('/api/account/list', auth, accountController.getAccountListController); // 내 계좌 리스트 정보
+router.post('/account', auth, createAccountValidator, accountController.createAccountController); // 계좌추가
+router.put('/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
+router.delete('/account', auth, accountAccess, accountController.deleteAccountController); // 계좌삭제
+router.get('/account/list', auth, accountController.getAccountListController); // 내 계좌 리스트 정보
 router.post(
-   '/api/account/init',
+   '/account/init',
    auth,
    createAccountInitialDataValidator,
    accountAccess,

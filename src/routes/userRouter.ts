@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /api/user/login:
+ * /user/login:
  *   post:
  *     summary: Login
  *     tags: [User]
@@ -38,7 +38,7 @@ const router = express.Router();
  *                    type: string
  *                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzYwOTF9.2WUst69Ta9qVPFDQ0HetHB1CsUt43Xg2sEkH_VGH8mM
  *
- * /api/user/refresh:
+ * /user/refresh:
  *   post:
  *     summary: Refresh(Access Token 재발급)
  *     tags: [User]
@@ -72,7 +72,7 @@ const router = express.Router();
  *                   example: Refresh Token 이 만료되었습니다.
  *
  */
-router.post('/api/user/login', userController.loginController); // 로그인요청 => at rt 발급
-router.post('/api/user/refresh', userController.reissueAcessTokenController); // at 재발급
-router.patch('/api/user/nickname', auth, userController.updateUserNicknameController); // 닉네임 수정
+router.post('/user/login', userController.loginController); // 로그인요청 => at rt 발급
+router.post('/user/refresh', userController.reissueAcessTokenController); // at 재발급
+router.patch('/user/nickname', auth, userController.updateUserNicknameController); // 닉네임 수정
 module.exports = router;
