@@ -2,6 +2,7 @@ import express from 'express';
 require('dotenv').config();
 const routes = require('./src/routes/index');
 const app = express();
+const cors = require('cors');
 const db = require('./database/index');
 const http = require('http');
 const morgan = require('morgan');
@@ -32,6 +33,13 @@ db.sequelize
 
 const redisClient = require('./database/redis');
 redisClient.connect().then();
+
+app.use(
+   cors({
+      origin: true, // 출처 허용 옵션
+      //credential: true // 사용자 인증이 필요한 리소스(쿠키 ..등) 접근
+   }),
+);
 
 app.use(morgan('combined'));
 

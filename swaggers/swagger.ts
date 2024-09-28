@@ -11,8 +11,8 @@ const options = {
       },
       servers: [
          {
-            url: 'http://localhost:10010',
-            description: 'local server',
+            url: 'http://15.165.75.251:10010/',
+            description: 'tadak server',
          },
       ],
    },

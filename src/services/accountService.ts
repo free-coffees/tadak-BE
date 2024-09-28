@@ -1,6 +1,6 @@
 import { Transaction } from 'sequelize';
 import ApiError from '../errorCuston/apiError';
-import { updateAccountDTO } from '../dto/accountDTO';
+import { createAccountInitalDataDTO, updateAccountDTO } from '../dto/accountDTO';
 
 const redisClient = require('../../database/redis');
 const db = require('../../database/index');
@@ -23,6 +23,15 @@ async function createAccountService(userId: number, accountName: string, securit
       await transaction.rollback();
       throw new ApiError(500, '트랜잭션 처리 중 오류가 발생했습니다.');
    }
+}
+
+async function createAccountInitalDataService(
+   accountId: number,
+   balanceKRW: number,
+   balanceUSD: number,
+   holdings: createAccountInitalDataDTO,
+) {
+   console.log(holdings);
 }
 
 async function getAccountListService(userId: number) {
@@ -117,4 +126,10 @@ async function deleteAccountService(accountId: number) {
    }
 }
 
-module.exports = { createAccountService, getAccountListService, updateAccountService, deleteAccountService };
+module.exports = {
+   createAccountService,
+   createAccountInitalDataService,
+   getAccountListService,
+   updateAccountService,
+   deleteAccountService,
+};

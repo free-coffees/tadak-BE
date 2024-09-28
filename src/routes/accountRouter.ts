@@ -2,6 +2,7 @@ import express from 'express';
 const accountController = require('../controllers/accountController');
 const auth = require('../middlewares/auth');
 const accountAccess = require('../middlewares/accountAccess');
+const createAccountInitialDataValidator = require('../middlewares/validators/createAccountInitalDataValidator');
 
 const router = express.Router();
 
@@ -57,6 +58,13 @@ const router = express.Router();
 router.post('/api/account', auth, accountController.createAccountController); // 계좌추가
 router.put('/api/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
 router.delete('/api/account', auth, accountAccess, accountController.deleteAccountController); // 계좌삭제
-router.get('/api/account/list', auth, accountController.getAccountListController);
+router.get('/api/account/list', auth, accountController.getAccountListController); // 내 계좌 리스트 정보
+router.post(
+   '/api/account/init',
+   auth,
+   createAccountInitialDataValidator,
+   accountAccess,
+   accountController.createAccountInitialDataController,
+); // 한번에 입력받기
 
 module.exports = router;

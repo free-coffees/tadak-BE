@@ -11,11 +11,26 @@ async function createAccountController(req: Request, res: Response) {
       if (!accountName || accountName == '') {
          const error = new ApiError(400, 'Invalid Request');
          throw error;
-      } // validation 부분으로 이동
+      } // 체크
       await accountService.createAccountService(userId, accountName, securitiesCompanyId);
       return res.status(StatusCodes.OK).send({ message: '새로운 계좌가 등록됐어요.' });
    } catch (error) {
       console.error('Account Creation Error :', error);
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
+   }
+}
+
+async function createAccountInitialDataController(req: Request, res: Response) {
+   try {
+      const { accountId, balanceKRW, balanceUSD, holdings } = req.body;
+      await accountService.createAccountInitalDataService(accountId, balanceKRW, balanceUSD, holdings);
+      return res.status(StatusCodes.OK).send({ message: '첫 주식 내역이 기록됐어요.' });
+   } catch (error) {
+      console.error('Account Initial Data Creation Error :', error);
       if (error instanceof ApiError) {
          return res.status(error.statusCode).json({ message: error.message });
       } else {
@@ -71,6 +86,7 @@ async function deleteAccountController(req: Request, res: Response) {
 
 module.exports = {
    createAccountController,
+   createAccountInitialDataController,
    getAccountListController,
    updateAccountController,
    deleteAccountController,
