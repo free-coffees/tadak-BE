@@ -12,7 +12,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /user/login:
+ * /api/user/login:
  *   post:
  *     summary: Login
  *     tags: [User]
@@ -31,17 +31,14 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 data:
- *                   type: object
- *                   properties:
- *                     access_token:
- *                       type: string
- *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic
- *                     refresh_token:
- *                       type: string
- *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzYwOTF9.2WUst69Ta9qVPFDQ0HetHB1CsUt43Xg2sEkH_VGH8mM
+ *                  access_token:
+ *                    type: string
+ *                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic
+ *                  refresh_token:
+ *                    type: string
+ *                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzYwOTF9.2WUst69Ta9qVPFDQ0HetHB1CsUt43Xg2sEkH_VGH8mM
  *
- * /user/refresh:
+ * /api/user/refresh:
  *   post:
  *     summary: Refresh(Access Token 재발급)
  *     tags: [User]
@@ -60,12 +57,9 @@ const router = express.Router();
  *             schema:
  *               type: object
  *               properties:
- *                 data:
- *                   type: object
- *                   properties:
- *                     access_token:
- *                       type: string
- *                       example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic
+ *                  access_token:
+ *                    type: string
+ *                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic
  *       401:
  *         description: 유효하지 않은 or 만료된 토큰
  *         content:

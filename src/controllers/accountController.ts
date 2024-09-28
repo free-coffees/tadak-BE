@@ -8,10 +8,6 @@ async function createAccountController(req: Request, res: Response) {
    try {
       const userId = req.userId;
       const { accountName, securitiesCompanyId } = req.body;
-      if (!accountName || accountName == '') {
-         const error = new ApiError(400, 'Invalid Request');
-         throw error;
-      } // 체크
       await accountService.createAccountService(userId, accountName, securitiesCompanyId);
       return res.status(StatusCodes.OK).send({ message: '새로운 계좌가 등록됐어요.' });
    } catch (error) {

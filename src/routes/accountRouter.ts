@@ -3,6 +3,7 @@ const accountController = require('../controllers/accountController');
 const auth = require('../middlewares/auth');
 const accountAccess = require('../middlewares/accountAccess');
 const createAccountInitialDataValidator = require('../middlewares/validators/createAccountInitalDataValidator');
+const createAccountValidator = require('../middlewares/validators/createAccountValidator');
 
 const router = express.Router();
 
@@ -15,7 +16,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /account:
+ * /api/account:
  *   post:
  *     summary: create account
  *     security:
@@ -28,10 +29,14 @@ const router = express.Router();
  *           schema:
  *             type: object
  *             properties:
- *               account_name:
+ *               accountName:
  *                 type: string
  *                 example: 삼성증권
  *                 description: account's name.
+ *               securitiesCompanyId:
+ *                 type: integer
+ *                 example: 7
+ *                 description: account's Securities Company Id.
  *     responses:
  *       200:
  *         description: Login Success
@@ -55,7 +60,7 @@ const router = express.Router();
  *                   example: Invalid Request.
  */
 
-router.post('/api/account', auth, accountController.createAccountController); // 계좌추가
+router.post('/api/account', auth, createAccountValidator, accountController.createAccountController); // 계좌추가
 router.put('/api/account', auth, accountAccess, accountController.updateAccountController); //계좌수정
 router.delete('/api/account', auth, accountAccess, accountController.deleteAccountController); // 계좌삭제
 router.get('/api/account/list', auth, accountController.getAccountListController); // 내 계좌 리스트 정보
