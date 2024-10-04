@@ -1,6 +1,6 @@
 import { Transaction } from 'sequelize';
 import ApiError from '../errorCustom/apiError';
-import { createAccountInitialDataDTO, updateAccountDTO } from '../dto/accountDTO';
+import { Holding, UpdateAccountDTO } from '../dto/accountDTO';
 
 const redisClient = require('../../database/redis');
 const db = require('../../database/index');
@@ -29,7 +29,7 @@ async function createAccountInitialDataService(
    accountId: number,
    balanceKRW: number,
    balanceUSD: number,
-   holdings: createAccountInitialDataDTO,
+   holdings: Holding[],
 ) {
    console.log(holdings);
 }
@@ -102,7 +102,7 @@ async function getAccountListService(userId: number) {
 }
 
 async function updateAccountService(accountId: number, accountName?: string, securitiesCompanyId?: number) {
-   const updateAccountDTO: updateAccountDTO = {};
+   const updateAccountDTO: UpdateAccountDTO = {};
 
    if (accountName) {
       updateAccountDTO.account_name = accountName;

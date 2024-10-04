@@ -1,9 +1,21 @@
-export interface updateAccountDTO {
+export interface CreateAccountRequest {
+   accountName: string;
+   securitiesCompanyId: number;
+}
+
+export interface UpdateAccountDTO {
    account_name?: string;
    securities_company_id?: number;
 }
 
-export interface createAccountInitialDataDTO {
+export interface CreateAccountInitialDataDTO {
+   accountId: number;
+   balanceKRW: number;
+   balanceUSD: number;
+   holdings: Holding[];
+}
+
+export interface Holding {
    stockId: number;
    transactionDate: Date;
    quantity: number;

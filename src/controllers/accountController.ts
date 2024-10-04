@@ -1,13 +1,14 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import ApiError from '../errorCustom/apiError';
+import { CreateAccountInitialDataDTO, CreateAccountRequest } from '../dto/accountDTO';
 
 const accountService = require('../services/accountService');
 
 async function createAccountController(req: Request, res: Response) {
    try {
       const userId = req.userId;
-      const { accountName, securitiesCompanyId } = req.body;
+      const { accountName, securitiesCompanyId }: CreateAccountRequest = req.body;
       await accountService.createAccountService(userId, accountName, securitiesCompanyId);
       return res.status(StatusCodes.OK).send({ message: '새로운 계좌가 등록됐어요.' });
    } catch (error) {
@@ -22,8 +23,8 @@ async function createAccountController(req: Request, res: Response) {
 
 async function createAccountInitialDataController(req: Request, res: Response) {
    try {
-      const { accountId, balanceKRW, balanceUSD, holdings } = req.body;
-      await accountService.createAccountInitalDataService(accountId, balanceKRW, balanceUSD, holdings);
+      const { accountId, balanceKRW, balanceUSD, holdings }: CreateAccountInitialDataDTO = req.body;
+      await accountService.createAccountInitialDataService(accountId, balanceKRW, balanceUSD, holdings);
       return res.status(StatusCodes.OK).send({ message: '첫 주식 내역이 기록됐어요.' });
    } catch (error) {
       console.error('Account Initial Data Creation Error :', error);
