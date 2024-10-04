@@ -1,4 +1,4 @@
-export interface createExchangeDTO {
+export interface CreateExchangeDTO {
    accountId: number;
    exchangeDate: Date;
    fromCurrency: 'krw' | 'usd';

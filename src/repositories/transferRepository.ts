@@ -1,10 +1,10 @@
 import { Transaction } from 'sequelize';
-import { createTransferDTO } from '../dto/transferDTO';
+import { CreateTransferDTO } from '../dto/transferDTO';
 
 const db = require('../../database/index');
 const transfer = db.transfer;
 
-async function createTransfer(createTransferDTO: createTransferDTO, option?: { transaction?: Transaction }) {
+async function createTransfer(createTransferDTO: CreateTransferDTO, option?: { transaction?: Transaction }) {
    const { accountId, transferDate, transferType, amount, currency } = createTransferDTO;
    const { transaction } = option || {};
    const data = await transfer.create(

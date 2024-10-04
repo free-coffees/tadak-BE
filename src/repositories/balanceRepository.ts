@@ -1,5 +1,4 @@
 import { Transaction } from 'sequelize';
-import { createTransferDTO } from '../dto/transferDTO';
 
 const db = require('../../database/index');
 const balance = db.balance;

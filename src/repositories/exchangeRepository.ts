@@ -1,11 +1,11 @@
 import { Transaction } from 'sequelize';
-import { createExchangeDTO } from '../dto/exchangeDTO';
+import { CreateExchangeDTO } from '../dto/exchangeDTO';
 
 const db = require('../../database/index');
 const exchange = db.exchange;
 
 async function createExchange(
-   createExchangeDTO: createExchangeDTO,
+   createExchangeDTO: CreateExchangeDTO,
    exchangedAmount: number,
    option?: { transaction?: Transaction },
 ) {

@@ -1,11 +1,11 @@
-import { createExchangeDTO } from '../dto/exchangeDTO';
+import { CreateExchangeDTO } from '../dto/exchangeDTO';
 import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
 const exchangeRepo = require('../repositories/exchangeRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 
-async function createExchangeService(createExchangeDTO: createExchangeDTO) {
+async function createExchangeService(createExchangeDTO: CreateExchangeDTO) {
    const transaction = await db.sequelize.transaction();
    try {
       const { accountId, exchangeDate, fromCurrency, toCurrency, exchangeRate, amount } = createExchangeDTO;

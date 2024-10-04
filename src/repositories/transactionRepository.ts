@@ -1,10 +1,10 @@
 import { Transaction } from 'sequelize';
-import { createTransactionDTO } from '../dto/transactionDTO';
+import { CreateTransactionDTO } from '../dto/transactionDTO';
 
 const db = require('../../database/index');
 const trans = db.transaction;
 
-async function createTransaction(createTransactionDTO: createTransactionDTO, option?: { transaction?: Transaction }) {
+async function createTransaction(createTransactionDTO: CreateTransactionDTO, option?: { transaction?: Transaction }) {
    const { transaction } = option || {};
    const { accountId, stockId, transactionDate, transactionType, quantity, price, currency } = createTransactionDTO;
    const totalAmount = quantity * price;

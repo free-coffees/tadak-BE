@@ -1,4 +1,4 @@
-import { createTransactionDTO } from '../dto/transactionDTO';
+import { CreateTransactionDTO } from '../dto/transactionDTO';
 import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
@@ -8,7 +8,7 @@ const holdingRepo = require('../repositories/holdingRepository');
 const stockRepo = require('../repositories/stockRepository');
 const addRedisPrice = require('../utils/addRedisPrice');
 
-async function createTransactionService(createTransactionDTO: createTransactionDTO) {
+async function createTransactionService(createTransactionDTO: CreateTransactionDTO) {
    const transaction = await db.sequelize.transaction();
    const { accountId, stockId, transactionDate, transactionType, quantity, price, currency } = createTransactionDTO;
    const balance = await balanceRepo.readBalanceByAccountIdAndCurrency(accountId, currency);

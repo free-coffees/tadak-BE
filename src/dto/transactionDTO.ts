@@ -1,4 +1,4 @@
-export interface createTransactionDTO {
+export interface CreateTransactionDTO {
    accountId: number;
    stockId: number;
    transactionDate: Date;

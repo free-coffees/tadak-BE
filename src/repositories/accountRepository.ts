@@ -1,4 +1,4 @@
-import { updateAccountDTO } from '../dto/accountDTO';
+import { UpdateAccountDTO } from '../dto/accountDTO';
 import ApiError from '../errorCustom/apiError';
 import { Transaction } from 'sequelize';
 
@@ -35,7 +35,7 @@ async function readAccountByUserId(userId: number) {
    return data;
 }
 
-async function updateAccount(accountId: number, updateAccountDTO: updateAccountDTO) {
+async function updateAccount(accountId: number, updateAccountDTO: UpdateAccountDTO) {
    const data = await account.update(updateAccountDTO, { where: { id: accountId } });
    return data;
 }

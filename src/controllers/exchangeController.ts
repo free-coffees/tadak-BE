@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import ApiError from '../errorCustom/apiError';
-import { createExchangeDTO } from '../dto/exchangeDTO';
+import { CreateExchangeDTO } from '../dto/exchangeDTO';
 
 const exchangeService = require('../services/exchangeService');
 
 async function createExchangeController(req: Request, res: Response) {
    try {
-      const createExchangeDTO: createExchangeDTO = req.body;
+      const createExchangeDTO: CreateExchangeDTO = req.body;
       await exchangeService.createExchangeService(createExchangeDTO);
       return res.status(StatusCodes.OK).send({ message: '환전이 정상적으로 처리 되었습니다.' });
    } catch (error) {

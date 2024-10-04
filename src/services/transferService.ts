@@ -1,12 +1,12 @@
 import { Transaction } from 'sequelize';
-import { createTransferDTO } from '../dto/transferDTO';
+import { CreateTransferDTO } from '../dto/transferDTO';
 import ApiError from '../errorCustom/apiError';
 
 const db = require('../../database/index');
 const transferRepo = require('../repositories/transferRepository');
 const balanceRepo = require('../repositories/balanceRepository');
 
-async function createTransferService(createTransferDTO: createTransferDTO) {
+async function createTransferService(createTransferDTO: CreateTransferDTO) {
    const transaction: Transaction = await db.sequelize.transaction();
    try {
       const { accountId, transferType, amount, currency } = createTransferDTO;
