@@ -35,8 +35,8 @@ async function createExchangeService(createExchangeDTO: CreateExchangeDTO) {
       await transaction.commit();
    } catch (error) {
       await transaction.rollback();
-      console.log('Transaction failed:', error);
-      throw new ApiError(500, '트랜잭션 처리 중 오류가 발생했습니다.');
+      console.log('Transaction failed at createExchange:', error);
+      throw new ApiError(500, '환전 거래 입력 중 오류가 발생했습니다.');
    }
 }
 
