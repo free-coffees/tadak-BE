@@ -1,452 +1,240 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "version": "1.0.0",
-    "title": "REST API",
-    "description": ""
-  },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http"
-  ],
-  "paths": {
-    "/user/login": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "device-id",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/user/refresh": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "refresh-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/user/nickname": {
-      "patch": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nickname": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/kakao/login": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "deviceId",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/kakao/callback": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "state",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/account": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "put": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                },
-                "accountName": {
-                  "example": "any"
-                },
-                "securitiesCompanyId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      },
-      "delete": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/account/list": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/account/init": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                },
-                "balanceKRW": {
-                  "example": "any"
-                },
-                "balanceUSD": {
-                  "example": "any"
-                },
-                "holdings": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/search": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "word",
-            "in": "query",
-            "type": "string"
-          },
-          {
-            "name": "page",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/search/{stockId}": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "stockId",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/transfer": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/transaction": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/exchange": {
-      "post": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "access-token",
-            "in": "header",
-            "type": "string"
-          },
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "accountId": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    }
-  },
-  "swaggerDefinition": {
-    "openapi": "3.0.0",
-    "info": {
-      "title": "TADAK API",
+   "openapi": "3.0.1",
+   "info": {
       "version": "1.0.0",
-      "description": "TADAK API"
-    },
-    "servers": [
-      {
-        "url": "http://15.165.75.251:10010/",
-        "description": "TADAK SERVER"
+      "title": "TADAK API",
+      "description": "TADAK SERVER API"
+   },
+   "schemes": ["http"],
+   "components": {
+      "securitySchemes": {
+         "accessTokenAuth": {
+            "type": "apiKey",
+            "in": "header",
+            "name": "access-token",
+            "description": "Enter your Access Token"
+         }
       }
-    ]
-  },
-  "apis": []
+   },
+   "paths": {
+      "/user/login": {
+         "post": {
+            "description": "기기 로그인",
+            "tags": ["User"],
+            "parameters": [
+               {
+                  "name": "device-id",
+                  "in": "header",
+                  "type": "string"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Login Success",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "access_token": {
+                                 "type": "string",
+                                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic"
+                              },
+                              "refresh_token": {
+                                 "type": "string",
+                                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzYwOTF9.2WUst69Ta9qVPFDQ0HetHB1CsUt43Xg2sEkH_VGH8mM"
+                              }
+                           }
+                        }
+                     }
+                  }
+               }
+            }
+         }
+      },
+      "/user/refresh": {
+         "post": {
+            "description": "Refresh(Access Token 재발급)",
+            "tags": ["User"],
+            "parameters": [
+               {
+                  "name": "refresh-token",
+                  "in": "header",
+                  "type": "string",
+                  "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic"
+               }
+            ],
+            "responses": {
+               "200": {
+                  "description": "Refresh Success(Access Token 재발급)",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "access_token": {
+                                 "type": "string",
+                                 "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiaWF0IjoxNzIyMjM1NzkxLCJleHAiOjE3MjIyMzU4NTF9.m7790_AD5P_oDTXCz4b9CwVK7pjn8b70UOZWojL4Kic"
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "Refresh Token 이 만료되었습니다. or 유효하지 않습니다."
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Internal Server Error"
+               }
+            }
+         }
+      },
+      "/user/nickname": {
+         "patch": {
+            "description": "닉네임 수정",
+            "tags": ["User"],
+            "security": [{ "accessTokenAuth": [] }],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "nickname": {
+                              "type": "string",
+                              "example": "변경할닉네임"
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "닉네임 수정 완료",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "닉네임이 수정 완료 되었습니다."
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "401": {
+                  "description": "Unauthorized",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "message"
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "500": {
+                  "description": "Internal Server Error"
+               }
+            }
+         }
+      },
+      "account": {
+         "post": {
+            "description": "계좌 생성",
+            "tags": ["Account"],
+            "security": [{ "accessTokenAuth": [] }],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "accountName": {
+                              "type": "string",
+                              "example": "삼성증권"
+                           },
+                           "securitiesCompanyId": {
+                              "type": "number",
+                              "example": 7
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "계좌 생성 완료",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "새로운 계좌가 등록됐어요."
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request"
+               },
+               "401": {
+                  "description": "Unauthorized"
+               },
+               "403": {
+                  "description": "Forbidden"
+               },
+               "404": {
+                  "description": "Not Found"
+               },
+               "500": {
+                  "description": "Internal Server Error"
+               }
+            }
+         }
+      }
+   },
+   "swaggerDefinition": {
+      "openapi": "3.0.0",
+      "info": {
+         "title": "TADAK API",
+         "version": "1.0.0",
+         "description": "TADAK API"
+      },
+      "servers": [
+         {
+            "url": "http://15.165.75.251:10010/",
+            "description": "TADAK SERVER"
+         }
+      ]
+   },
+   "apis": []
 }

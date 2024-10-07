@@ -14,7 +14,6 @@
       "typescript": "^5.5.2"
    },
    "scripts": {
-      "gendocs": "node ./swaggers/swagger.ts",
       "build": "tsc",
       "start": "node dist/server.js",
       "dev": "nodemon --watch \"*.ts\" --exec \"ts-node\" --files server.ts",

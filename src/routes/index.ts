@@ -9,20 +9,6 @@ const transactionRouter = require('./transactionRouter');
 const exchangeRouter = require('./exchangeRouter');
 const router = express.Router();
 
-/**
- * @swagger
- * components:
- *   securitySchemes:
- *     accessTokenAuth:
- *       type: apiKey
- *       in: header
- *       name: access-token
- *       description: Enter your Access Token
- *
- * security:
- *   - accessTokenAuth: []
- */
-
 router.use(stockRouter);
 router.use(userRouter);
 router.use(socialLoginRouter);

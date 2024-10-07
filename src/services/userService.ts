@@ -38,7 +38,7 @@ async function loginService(
    return { access_token: accessToken, refresh_token: refreshToken, nickname };
 }
 
-async function reissueAcessTokenService(refreshToken: string) {
+async function reissueAccessTokenService(refreshToken: string) {
    let accessToken: string = '';
    const decoded = await jwt.verify(refreshToken, secret_key);
    if (typeof decoded == 'string') {
@@ -66,4 +66,4 @@ async function updateUserNicknameService(userId: number, nickname: string) {
    await userRepo.updateUserNickname(userId, nickname);
 }
 
-module.exports = { loginService, reissueAcessTokenService, updateUserNicknameService };
+module.exports = { loginService, reissueAccessTokenService, updateUserNicknameService };

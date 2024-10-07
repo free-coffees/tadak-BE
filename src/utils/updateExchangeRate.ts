@@ -1,6 +1,6 @@
 import axios from 'axios';
 const cheerio = require('cheerio');
-const exchageRateRepo = require('../repositories/exchangeRateRepository');
+const exchangeRateRepo = require('../repositories/exchangeRateRepository');
 
 async function updateExchangeRate() {
    try {
@@ -10,7 +10,7 @@ async function updateExchangeRate() {
       let rate = exchangeRate.slice(0, 9);
       rate = rate.replace(/,/g, '');
       let rateNum = parseFloat(rate);
-      await exchageRateRepo.createExchangeRate(rateNum);
+      await exchangeRateRepo.createExchangeRate(rateNum);
    } catch (error) {
       console.error('Update Exchange Rate Error : ', error);
    }

@@ -19,10 +19,10 @@ async function loginController(req: Request, res: Response) {
    }
 }
 
-async function reissueAcessTokenController(req: Request, res: Response) {
+async function reissueAccessTokenController(req: Request, res: Response) {
    try {
       const refreshToken = req.headers['refresh-token']; // 400, refresh 필요
-      const data = await userService.reissueAcessTokenService(refreshToken);
+      const data = await userService.reissueAccessTokenService(refreshToken);
       return res.status(StatusCodes.OK).send(data);
    } catch (error: any) {
       console.error('Reissue AT Error : ', error);
@@ -58,4 +58,4 @@ async function updateUserNicknameController(req: Request, res: Response) {
    }
 }
 
-module.exports = { loginController, reissueAcessTokenController, updateUserNicknameController };
+module.exports = { loginController, reissueAccessTokenController, updateUserNicknameController };

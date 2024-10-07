@@ -62,7 +62,7 @@ async function createTransactionService(createTransactionDTO: CreateTransactionD
    } catch (error) {
       await transaction.rollback();
       console.error('Transaction failed at createTransaction:', error);
-      throw new ApiError(500, '매수/매도 입력 중 오류가 발생했습니다.');
+      throw new ApiError(500, '매수/매도 거래 입력 중 오류가 발생했습니다.');
    }
 }
 
