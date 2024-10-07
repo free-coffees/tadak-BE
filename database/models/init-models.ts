@@ -59,14 +59,18 @@ function initModels(sequelize: Sequelize) {
    account.belongsTo(securitiesCompany, { foreignKey: 'securities_company_id' });
 
    account.addHook('afterBulkDestroy', async (options: any) => {
-      const transaction = options.transaction;
+      const t = options.transaction;
+      if (!t) {
+         console.log('트랜잭션 작동하나??');
+      }
+      console.log('여기여기');
       await Promise.all([
-         holding.destroy({ where: { account_id: options.where.id }, transaction }),
-         balance.destroy({ where: { account_id: options.where.id }, transaction }),
-         dividend.destroy({ where: { account_id: options.where.id }, transaction }),
-         transaction.destroy({ where: { account_id: options.where.id }, transaction }),
-         exchange.destroy({ where: { account_id: options.where.id }, transaction }),
-         transfer.destroy({ where: { account_id: options.where.id }, transaction }),
+         holding.destroy({ where: { account_id: options.where.id }, t }),
+         balance.destroy({ where: { account_id: options.where.id }, t }),
+         dividend.destroy({ where: { account_id: options.where.id }, t }),
+         transaction.destroy({ where: { account_id: options.where.id }, t }),
+         exchange.destroy({ where: { account_id: options.where.id }, t }),
+         transfer.destroy({ where: { account_id: options.where.id }, t }),
       ]);
    });
 
