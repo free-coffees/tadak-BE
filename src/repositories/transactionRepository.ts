@@ -2,7 +2,7 @@ import { Transaction } from 'sequelize';
 import { CreateTransactionDTO } from '../dto/transactionDTO';
 
 const db = require('../../database/index');
-const trans = db.transaction;
+const trans = db.trans;
 
 async function createTransaction(createTransactionDTO: CreateTransactionDTO, option?: { transaction?: Transaction }) {
    const { transaction } = option || {};

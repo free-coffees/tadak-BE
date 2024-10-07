@@ -25,7 +25,7 @@ function initModels(sequelize: Sequelize) {
    const balance = balanceModel(sequelize);
    const transfer = transferModel(sequelize);
    const exchange = exchangeModel(sequelize);
-   const transaction = transactionModel(sequelize);
+   const trans = transactionModel(sequelize);
    const holding = holdingModel(sequelize);
    const dividend = dividendModel(sequelize);
    const idxSP500 = idxSP500Model(sequelize);
@@ -41,10 +41,10 @@ function initModels(sequelize: Sequelize) {
    exchange.belongsTo(account, { foreignKey: 'account_id' });
    account.hasMany(balance, { foreignKey: 'account_id' });
    balance.belongsTo(account, { foreignKey: 'account_id' });
-   account.hasMany(transaction, { foreignKey: 'account_id' });
-   transaction.belongsTo(account, { foreignKey: 'account_id' });
-   stock.hasMany(transaction, { foreignKey: 'stock_id' });
-   transaction.belongsTo(stock, { foreignKey: 'stock_id' });
+   account.hasMany(trans, { foreignKey: 'account_id' });
+   trans.belongsTo(account, { foreignKey: 'account_id' });
+   stock.hasMany(trans, { foreignKey: 'stock_id' });
+   trans.belongsTo(stock, { foreignKey: 'stock_id' });
    account.hasMany(dividend, { foreignKey: 'account_id' });
    dividend.belongsTo(account, { foreignKey: 'account_id' });
    stock.hasMany(dividend, { foreignKey: 'stock_id' });
@@ -58,20 +58,19 @@ function initModels(sequelize: Sequelize) {
    securitiesCompany.hasMany(account, { foreignKey: 'securities_company_id' });
    account.belongsTo(securitiesCompany, { foreignKey: 'securities_company_id' });
 
-   account.addHook('afterBulkDestroy', async (options: any) => {
-      const t = options.transaction;
-      if (!t) {
-         console.log('트랜잭션 작동하나??');
+   account.addHook('beforeBulkDestroy', async (options: any) => {
+      const transaction = options.transaction;
+      try {
+         await holding.destroy({ where: { account_id: options.where.id }, transaction });
+         await balance.destroy({ where: { account_id: options.where.id }, transaction });
+         await dividend.destroy({ where: { account_id: options.where.id }, transaction });
+         await trans.destroy({ where: { account_id: options.where.id }, transaction });
+         await exchange.destroy({ where: { account_id: options.where.id }, transaction });
+         await transfer.destroy({ where: { account_id: options.where.id }, transaction });
+      } catch (error) {
+         console.error('Transaction failed at account.addHook:', error);
+         throw new ApiError(500, '관련 데이터를 삭제 중 오류가 발생했습니다.');
       }
-      console.log('여기여기');
-      await Promise.all([
-         holding.destroy({ where: { account_id: options.where.id }, t }),
-         balance.destroy({ where: { account_id: options.where.id }, t }),
-         dividend.destroy({ where: { account_id: options.where.id }, t }),
-         transaction.destroy({ where: { account_id: options.where.id }, t }),
-         exchange.destroy({ where: { account_id: options.where.id }, t }),
-         transfer.destroy({ where: { account_id: options.where.id }, t }),
-      ]);
    });
 
    return {
@@ -86,7 +85,7 @@ function initModels(sequelize: Sequelize) {
       account,
       balance,
       exchange,
-      transaction,
+      trans,
       holding,
       dividend,
       securitiesCompany,
