@@ -22,6 +22,11 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.INTEGER,
             allowNull: false,
          },
+         is_started: {
+            type: DataTypes.ENUM('Y', 'N'),
+            defaultValue: 'N',
+            allowNull: false,
+         },
       },
       {
          paranoid: true,

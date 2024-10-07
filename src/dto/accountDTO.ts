@@ -17,7 +17,6 @@ export interface CreateAccountInitialDataDTO {
 
 export interface Holding {
    stockId: number;
-   transactionDate: Date;
    quantity: number;
    averagePrice: number;
    currency: 'krw' | 'usd';
