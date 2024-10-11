@@ -21,6 +21,7 @@
          "post": {
             "description": "기기 로그인",
             "tags": ["User"],
+            "summary": "로그인",
             "parameters": [
                {
                   "name": "device-id",
@@ -56,6 +57,7 @@
          "post": {
             "description": "Refresh(Access Token 재발급)",
             "tags": ["User"],
+            "summary": "Refresh",
             "parameters": [
                {
                   "name": "refresh-token",
@@ -104,9 +106,10 @@
          }
       },
       "/user/nickname": {
-         "patch": {
+         "put": {
             "description": "닉네임 수정",
             "tags": ["User"],
+            "summary": "유저 닉네임 수정",
             "security": [{ "accessTokenAuth": [] }],
             "requestBody": {
                "content": {
@@ -162,10 +165,11 @@
             }
          }
       },
-      "account": {
+      "/account": {
          "post": {
             "description": "계좌 생성",
             "tags": ["Account"],
+            "summary": "계좌 생성",
             "security": [{ "accessTokenAuth": [] }],
             "requestBody": {
                "content": {
@@ -197,6 +201,122 @@
                               "message": {
                                  "type": "string",
                                  "example": "새로운 계좌가 등록됐어요."
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request"
+               },
+               "401": {
+                  "description": "Unauthorized"
+               },
+               "403": {
+                  "description": "Forbidden"
+               },
+               "404": {
+                  "description": "Not Found"
+               },
+               "500": {
+                  "description": "Internal Server Error"
+               }
+            }
+         },
+         "put": {
+            "description": "계좌 수정",
+            "tags": ["Account"],
+            "summary": "계좌 수정",
+            "security": [{ "accessTokenAuth": [] }],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "accountId": {
+                              "type": "number",
+                              "example": 17
+                           },
+                           "accountName": {
+                              "type": "string",
+                              "example": "삼성증권"
+                           },
+                           "securitiesCompanyId": {
+                              "type": "number",
+                              "example": 7
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "계좌 수정 완료",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "계좌 내용이 수정됐어요."
+                              }
+                           }
+                        }
+                     }
+                  }
+               },
+               "400": {
+                  "description": "Bad Request"
+               },
+               "401": {
+                  "description": "Unauthorized"
+               },
+               "403": {
+                  "description": "Forbidden"
+               },
+               "404": {
+                  "description": "Not Found"
+               },
+               "500": {
+                  "description": "Internal Server Error"
+               }
+            }
+         },
+         "delete": {
+            "description": "계좌 삭제",
+            "tags": ["Account"],
+            "summary": "계좌 삭제",
+            "security": [{ "accessTokenAuth": [] }],
+            "requestBody": {
+               "content": {
+                  "application/json": {
+                     "schema": {
+                        "type": "object",
+                        "properties": {
+                           "accountId": {
+                              "type": "number",
+                              "example": 17
+                           }
+                        }
+                     }
+                  }
+               }
+            },
+            "responses": {
+               "200": {
+                  "description": "계좌 삭제 완료",
+                  "content": {
+                     "application/json": {
+                        "schema": {
+                           "type": "object",
+                           "properties": {
+                              "message": {
+                                 "type": "string",
+                                 "example": "변경된 내용이 저장됐어요."
                               }
                            }
                         }

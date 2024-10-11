@@ -30,6 +30,10 @@ module.exports = function (sequelize: Sequelize) {
             type: DataTypes.ENUM('krw', 'usd'),
             allowNull: false,
          },
+         transfer_name: {
+            type: DataTypes.STRING,
+            allowNull: true,
+         },
       },
       {
          paranoid: true,
