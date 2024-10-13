@@ -11,8 +11,6 @@ export interface UpdateTransferDTO {
    accountId: number;
    transferId: number;
    transferDate: Date;
-   transferType: 'deposit' | 'withdrawal';
    amount: number;
-   currency: 'krw' | 'usd';
    transferName: string;
 }

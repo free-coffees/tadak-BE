@@ -35,4 +35,20 @@ async function updateTransferController(req: Request, res: Response) {
    }
 }
 
-module.exports = { createTransferController, updateTransferController };
+async function deleteTransferController(req: Request, res: Response) {
+   try {
+      const transferId = req.body.transferId;
+      const userId = req.userId;
+      await transferService.deleteTransferService(userId, transferId);
+      return res.status(StatusCodes.OK).send({ message: '선택 기록이 삭제됐어요.' });
+   } catch (error) {
+      console.error('Transfer Deletion Error:', error);
+      if (error instanceof ApiError) {
+         return res.status(error.statusCode).json({ message: error.message });
+      } else {
+         return res.status(500).json({ message: 'Internal Server Error' });
+      }
+   }
+}
+
+module.exports = { createTransferController, updateTransferController, deleteTransferController };

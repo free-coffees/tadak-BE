@@ -52,4 +52,9 @@ async function updateTransfer(
    return data;
 }
 
-module.exports = { createTransfer, readTransferById, updateTransfer };
+async function deleteTransfer(transferId: number, option?: { transaction?: Transaction }) {
+   const { transaction } = option || {};
+   await transfer.destroy({ where: { id: transferId }, transaction });
+}
+
+module.exports = { createTransfer, readTransferById, updateTransfer, deleteTransfer };
