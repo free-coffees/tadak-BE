@@ -54,6 +54,7 @@ async function createAccountInitialDataService(
             transferType: 'deposit',
             amount: balanceKRW,
             currency: 'krw',
+            transferName: '기존 내역 기록',
          };
          await transferRepo.createTransfer(createTransferDTO, { transaction });
          await balanceRepo.updateBalance(accountId, 'krw', balanceKRW, { transaction });
@@ -67,6 +68,7 @@ async function createAccountInitialDataService(
             transferType: 'deposit',
             amount: balanceUSD,
             currency: 'usd',
+            transferName: '기존 내역 기록',
          };
          await transferRepo.createTransfer(createTransferDTO, { transaction });
          await balanceRepo.updateBalance(accountId, 'usd', balanceUSD, { transaction });
@@ -82,6 +84,7 @@ async function createAccountInitialDataService(
             transferType: 'deposit',
             amount: amount,
             currency: holding.currency,
+            transferName: '기존 내역 기록',
          };
          await transferRepo.createTransfer(createTransferDTO, { transaction });
 

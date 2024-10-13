@@ -23,6 +23,11 @@ async function createTransfer(createTransferDTO: CreateTransferDTO, option?: { t
    return data;
 }
 
+async function readTransferById(transferId: number) {
+   const data = await transfer.findOne({ where: { id: transferId }, raw: true });
+   return data;
+}
+
 async function updateTransfer(
    transferId: number,
    transferDate: Date,
@@ -47,4 +52,4 @@ async function updateTransfer(
    return data;
 }
 
-module.exports = { createTransfer, updateTransfer };
+module.exports = { createTransfer, readTransferById, updateTransfer };
